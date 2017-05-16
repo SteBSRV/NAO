@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * User
+ * Taxref
  *
  * @ORM\Table(name="taxref")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TaxrefRepository")
