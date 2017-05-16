@@ -1,3 +1,3 @@
 $(document).ready(function() {
-    alert('fonctionnement assetic OK');
+    console.log('fonctionnement assetic OK');
 });
