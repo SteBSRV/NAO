@@ -205,9 +205,10 @@ a {
 /* Responsive tablet */
 @media(min-width:768px) {
 	.observation_img{
-	height: 200px;
-	border-radius: 100px;
-}
+		height: 200px;
+		border-radius: 100px;
+	}
+}	
 /* End responsifve tablet */
 
 /* Responsive desktop */
