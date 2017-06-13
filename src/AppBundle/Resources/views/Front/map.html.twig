@@ -1,0 +1,28 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block body %}
+<div class="row map-container">
+	<div class="filter">
+        <form>
+
+        </form>
+    </div>
+    <div id="map-observe"></div>
+    <div id="loading" style="display:none">
+    	<p>
+			{% image '@AppBundle/Resources/public/images/loading.gif' %}
+    			<img src="{{ asset_url }}">
+    		{% endimage %}
+    		Chargement...
+    	</p>
+	</div>
+</div>
+
+
+
+{% javascripts '@AppBundle/Resources/public/js/map/init.js' %}
+	<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGm2xguvSGtsa23ocPSfgDhI1bYipuIoU&callback=initMap" async defer></script>
+
+{% endblock %}
