@@ -1,12 +1,110 @@
-{% extends ('layout/layout.html.twig') %}
+{% extends "layout/layout.html.twig" %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-md-12">
-            <div class="starter-template">
-                <h1>Bootstrap starter template</h1>
-                <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+<div class="row">
+	<div id="diapo" class="col-xs-12">
+    	<div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <div class="item active">
+            	{% image '@AppBundle/Resources/public/images/diapo/1.jpg' %}
+                	<img src="{{ asset_url }}" alt="Diapo 1" style="width:100%;">
+                {% endimage %}
+                <div class="carousel-caption">
+                    <h3>NAO</h3>
+                    <p>Nos amis les oiseaux !</p>
+                </div>
+            </div>
+            <div class="item">
+            	{% image '@AppBundle/Resources/public/images/diapo/2.jpg' %}
+                	<img src="{{ asset_url }}" alt="Diapo 2" style="width:100%;">
+                {% endimage %}
+                <div class="carousel-caption">
+                    <h3>NAO</h3>
+                    <p>Nos amis les oiseaux !</p>
+                </div>
+            </div>
+            <div class="item">
+            	{% image '@AppBundle/Resources/public/images/diapo/3.jpg' %}
+                	<img src="{{ asset_url }}" alt="Diapo 3" style="width:100%;">
+                {% endimage %}
+                <div class="carousel-caption">
+                    <h3>NAO</h3>
+                    <p>Nos amis les oiseaux !</p>
+                </div>
+            </div>
+        </div>
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only">Suivant</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only">Précédent</span>
+        </a>
+    	</div>
+	</div>
+</div>
+<div class="row">
+	<div id="home_categories" class="col-xs-12">
+        <div class="home_category col-xs-12 col-sm-4">
+            <div class="category">
+                <div class="category_head">
+                    <center>
+                    	{% image '@AppBundle/Resources/public/images/home_observe.png' %}
+                    		<img class="category_img" src="{{ asset_url }}">
+						{% endimage %}
+                    </center>
+                </div>
+                <div class="category_content">
+                    <h3 class="category_title">Observations</h3>
+                    <p>
+                        Lorem ipsum ...
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="home_category col-xs-12 col-sm-4">
+            <div class="category">
+                <div class="category_head">
+                    <center>
+                    	{% image '@AppBundle/Resources/public/images/home_binoculars.png' %}
+                    		<img class="category_img" src="{{ asset_url }}">
+						{% endimage %}
+                    </center>
+                </div>
+                <div class="category_content">
+                    <h3 class="category_title">Participer</h3>
+                    <p>
+                        Lorem ipsum ...
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="home_category col-xs-12 col-sm-4">
+            <div class="category">
+                <div class="category_head">
+                    <center>
+                    	{% image '@AppBundle/Resources/public/images/home_map.png' %}
+                    		<img class="category_img" src="{{ asset_url }}">
+                    	{% endimage %}
+                    </center>
+                </div>
+                <div class="category_content">
+                    <h3 class="category_title">Carte intéractive</h3>
+                    <p>
+                        Lorem ipsum ...
+                    </p>
+                </div>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}
