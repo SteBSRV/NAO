@@ -5,6 +5,8 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Observation;
+use AppBundle\Form\Type\ObservationType;
 
 class AppController extends Controller
 {
@@ -29,7 +31,13 @@ class AppController extends Controller
      */
     public function showAction(Request $request)
     {
-        return $this->render('AppBundle:Front:show.html.twig');
+        $routeParams = $request->attributes->get('_route_params');
+        $id = $routeParams['id'];
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation');
+        $observation = $repository->find($id);
+
+        return $this->render('AppBundle:Front:show.html.twig', compact('observation'));
     }
 
     /**
@@ -37,7 +45,21 @@ class AppController extends Controller
      */
     public function postAction(Request $request)
     {
-        return $this->render('AppBundle:Front:post.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $observation = new Observation();
+
+        $form = $this->get('form.factory')->create(ObservationType::class, $observation);
+
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            $em->persist($observation);
+            $em->flush();
+            $request->getSession()->getFlashBag()->add('info','Observation bien ajoutée.');
+            $id = $observation->getId();
+            return $this->redirectToRoute('observation', compact('id','observation'));
+        }
+
+
+        return $this->render('AppBundle:Front:post.html.twig', ['form' => $form->createView()]);
     }
 
     /**

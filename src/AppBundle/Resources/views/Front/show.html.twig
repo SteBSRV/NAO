@@ -2,8 +2,39 @@
 
 {% block body %}
 <div class="row">
-	<form id="participate_form">
-
-	</form>
+	<div id="observations_wrapper" class="col-xs-12">
+        <div class="observation col-xs-12">
+	        <div class="observation_head col-xs-12">
+	        	<div class="col-xs-12">
+					<h3 class="observation_title">{{ observation.bird.nomVer }}</h3>
+	        	</div>
+				<div class="col-xs-4">
+					<center>
+		            	<img class="observation_img" src="{{ vich_uploader_asset(observation, 'image', 'AppBundle\\Entity\\Observation') }}" alt="{{ observation.bird.nomVer }}">
+	            	</center>
+				</div>
+				<div class="col-xs-8">
+					<p class="observation_meta">Aperçu à : {{observation.address.city}}</p>
+					<p class="observation_meta">Nombre aperçu : {{observation.nbObserved}}</p>
+					<p class="observation_meta">Vu le : {{ observation.date | date("d/m/Y") }} à {{observation.date | date("H:i:s")}}</p>
+				</div>
+	        </div>
+	        <div class="observation_content col-xs-12">
+	            <p class="observation_desc">
+	            	{{observation.description}}
+	            </p>
+	        </div>
+	        <div class="observation_map visible-lg col-lg-2">
+	            <p class="bookmark">Ajouter au favoris <i class="fa fa-heart-o"></i></p>
+	            <center>
+	            	{% image '@AppBundle/Resources/public/images/btn_map.png' %}
+	                	<img class="observation_map_link" src="{{ asset_url }}">
+	                {% endimage %}
+	                <br>
+	                <a class="btn btn-primary" href="{{ path('map') }}">Voir sur la carte</a>
+	            </center>
+	        </div>
+	    </div>
+    </div>
 </div>
 {% endblock %}
