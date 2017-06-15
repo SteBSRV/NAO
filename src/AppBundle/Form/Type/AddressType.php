@@ -5,6 +5,7 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -18,12 +19,21 @@ class AddressType extends AbstractType
         $builder
         	->add('address',         TextType::class, [
                 'label' => 'Adresse',
+                'attr' => ['onchange' => 'codeAddress()'],
             ])
             ->add('postalCode',         IntegerType::class, [
                 'label' => 'Code postal',
+                'attr' => ['onchange' => 'codeAddress()'],
             ])
             ->add('city',       TextType::class, [
-                'label'    => 'Ville'
+                'label'    => 'Ville',
+                'attr' => ['onchange' => 'codeAddress()'],
+            ])
+            ->add('ltd',       HiddenType::class, [
+                'label'    => 'Latitude',
+            ])
+            ->add('lgt',       HiddenType::class, [
+                'label'    => 'Longitude',
             ])
         ;
     }

@@ -4,4 +4,66 @@
 <div class="row participate">
 	{{ form(form) }}
 </div>
+
+<button onclick="codeAddress()">Check adress</button>
+<input type="text" id="lat_checked" value="43.6380371">
+<input type="text" id="lng_checked" value="3.840581899999961">
+<button onclick="codeLatLng()">Check LatLng</button>
+
+<script type="text/javascript">
+	var geocoder;
+	var map;
+	function initialize() {
+		geocoder = new google.maps.Geocoder();
+	}
+
+  	function codeAddress() {
+  		var addressRoad = document.getElementById('observation_address_address');
+  		var postalCode = document.getElementById('observation_address_postalCode');
+  		var cityName = document.getElementById('observation_address_city');
+
+  		if (addressRoad.value != "" && postalCode.value != "" && cityName.value != "") {
+			var address = addressRoad.value;
+			address += ', ' + postalCode.value;
+			address += ' ' + cityName.value;
+			console.log(address);
+			geocoder.geocode( { 'address': address}, function(results, status) {
+			  if (status == 'OK') {
+				document.getElementById('observation_address_lgt').value = results[0].geometry.location.lng()
+				document.getElementById('observation_address_ltd').value = results[0].geometry.location.lat();
+			  } else {
+			    alert('Geocode was not successful for the following reason: ' + status);
+			  }
+			});
+		}
+  	}
+
+  	function codeLatLng() {
+		var input = document.getElementById('lat_checked').value;
+		input += ', ' + document.getElementById('lng_checked').value;
+		var latlngStr = input.split(',', 2);
+		var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
+		geocoder.geocode({'location': latlng}, function(results, status) {
+		if (status === 'OK') {
+		  if (results[1]) {
+		    console.log(results[0].formatted_address);
+		    console.log(results[0].address_components);
+		    var addressRoad = results[0].address_components[0].long_name + ', ' + results[0].address_components[1].long_name;
+		    var postalCode = results[0].address_components[6].long_name;
+		    var cityName = results[0].address_components[2].long_name;
+		    document.getElementById('observation_address_address').value = addressRoad;
+		    document.getElementById('observation_address_postalCode').value = postalCode;
+		    document.getElementById('observation_address_city').value = cityName;
+		  } else {
+		    window.alert('No results found');
+		  }
+		} else {
+		  window.alert('Geocoder failed due to: ' + status);
+		}
+		});
+  	}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGfq5n1vQSGUbBjqfEPaKBXMp81UcrvOU&callback=initialize" async defer></script>
+
 {% endblock %}

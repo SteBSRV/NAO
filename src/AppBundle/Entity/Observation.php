@@ -82,7 +82,7 @@ class Observation
     /** 
      * @var File
      *
-     * @Vich\UploadableField(mapping="observations_images", fileNameProperty="image")
+     * @Vich\UploadableField(mapping="observations_images", fileNameProperty="image", nullable=true)
      */
     private $imageFile;
 
