@@ -1,0 +1,28 @@
+{% extends 'HWIOAuthBundle::layout.html.twig' %}
+
+{% block hwi_oauth_content %}
+    {% if error is defined and error %}
+        <span>{{ error }}</span>
+    {% endif %}
+    <div class="row mg-t-50">
+        <div class="col-md-offset-3 col-md-6 login_box">
+            {% image '@AppBundle/Resources/public/images/nao_icon.png' %}
+            <img src="{{ asset_url }}" class="center-block" alt="logo icon" width="150">
+            {% endimage %}
+            {{ render(controller('FOSUserBundle:Security:login')) }}
+            {% for owner in hwi_oauth_resource_owners() %}
+            <a href="{{ hwi_oauth_login_url(owner) }}">{{ owner | capitalize | trans({}, 'HWIOAuthBundle') }}</a> <br />
+            {% endfor %}
+        </div>
+    </div>
+    <style>
+        .mg-t-50{
+            margin-top: 50px;
+        }
+        .login_box{
+            border: 3px solid #55cadb;
+            border-radius: 25px;
+            padding: 50px;
+        }
+    </style>
+{% endblock hwi_oauth_content %}

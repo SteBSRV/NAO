@@ -45,12 +45,13 @@
                 <li>
                     <a href="{{ path('faq') }}">F.A.Q.</a>
                 </li>
-                <li>
-                    <a href="{{ path('account') }}">(Mon compte)</a>
-                </li>
-                <li>
-                    <a href="{{ path('logout') }}">(Déconnexion)</a>
-                </li>
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <li><a href="{{ path('fos_user_profile_show') }}">Mon compte</a></li>
+                    <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
+                {% else %}
+                    <li><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
+                    <li><a href="{{ path('fos_user_registration_register') }}">Inscription</a></li>
+                {% endif %}
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -62,7 +63,7 @@
                     <header class="col-xs-12">
                         <h1>
                             {% image '@AppBundle/Resources/public/images/nao_full_logo.png' %}
-                                <img id="header_img" src="{{ asset_url }}" alt="Nos amis les oiseaux">
+                                <a href="{{ path('homepage') }}"><img id="header_img" src="{{ asset_url }}" alt="Nos amis les oiseaux"></a>
                             {% endimage %}
                         </h1>
                         <span id="open_menu"><i class="fa fa-bars fa-3x"></i></span>
@@ -83,12 +84,13 @@
                                 <li>
                                     <a href="{{ path('faq') }}">F.A.Q.</a>
                                 </li>
-                                <li>
-                                    <a href="{{ path('account') }}">(Mon compte)</a>
-                                </li>
-                                <li>
-                                    <a href="{{ path('logout') }}">(Déconnexion)</a>
-                                </li>
+                                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                    <li><a href="{{ path('fos_user_profile_show') }}">Mon compte</a></li>
+                                    <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
+                                {% else %}
+                                    <li><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
+                                    <li><a href="{{ path('fos_user_registration_register') }}">Inscription</a></li>
+                                {% endif %}
                             </ul>
                         </div>
                     </header>

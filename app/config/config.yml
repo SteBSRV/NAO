@@ -3,6 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: "@UserBundle/Resources/config/services.yml" }
+    - { resource: "@HwiBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -81,6 +82,37 @@ fos_user:
     from_email:
         address: ebizetsteve@gmail.com
         sender_name: "Nos Amis les Oiseaux"
+
+
+#HwiOAuth
+hwi_oauth:
+    connect:
+        confirmation: true
+        registration_form: fos_user.registration.form.factory
+    firewall_names:
+        - 'main'
+    fosub:
+        username_iterations: 30
+        properties:
+            facebook: facebookId
+            google: googleId
+    resource_owners:
+        # Facebook Access
+        facebook:
+            type:                facebook
+            client_id:           '%facebook_client_id%'
+            client_secret:       '%facebook_client_secret%'
+            scope:               "email"
+            options:
+                csrf: true
+        google:
+            type:                google
+            client_id:           '%google_client_id%'
+            client_secret:       '%google_client_secret%'
+            scope:               "email profile"
+            options:
+                csrf: true
+                access_type:     offline
 
 # Assetic Configuration
 assetic:
