@@ -75,9 +75,9 @@ class Observation
     /**
      * @var string
      *
-     * @ORM\Column(name="image", type="string", length=255, nullable=true)
+     * @ORM\Column(name="image", type="string", length=255)
      */
-    protected $image;
+    protected $image = '5943b32b391e5.png';
 
     /** 
      * @var File
@@ -261,7 +261,7 @@ class Observation
      *
      * @return Observation
      */
-    public function setImage(File $image)
+    public function setImage($image)
     {
         $this->image = $image;
 
@@ -288,6 +288,10 @@ class Observation
     public function setImageFile(File $image = null)
     {
         $this->imageFile = $image;
+
+        if($image) {
+            $this->date = new \DateTime("now");
+        }
 
         return $this;
     }

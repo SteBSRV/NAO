@@ -2,68 +2,82 @@
 
 {% block body %}
 <div class="row participate">
-	{{ form(form) }}
+	<div id="participate_form" class="col-md-8 col-md-offset-2">
+		{{ form_start(form) }}
+		    {{ form_errors(form) }}
+
+			<div class="col-md-4">
+			    <div class="form-group">
+				        {{ form_errors(form.imageFile) }}
+				    <label class="btn btn-default btn-file">
+				        <i class="fa fa-camera fa-3x"></i><br>Ajouter une<br>photo {{ form_widget(form.imageFile, {'attr':{'class': 'form-control', 'style': 'display: none;'}}) }}
+				    </label>
+			    </div>
+			</div>
+
+			<div class="col-md-8">
+			    <div class="form-group col-md-12">
+			        {{ form_errors(form.date) }}
+			        {{ form_widget(form.date, {'attr':{'class': 'form-control', 'placeholder': 'date'}}) }}
+			    </div>
+
+			    <div class="form-group col-md-7">
+			        {{ form_errors(form.address.address) }}
+			        {{ form_widget(form.address.address, {'attr':{'onchange': 'codeAddress()', 'class': 'form-control', 'placeholder': 'Adresse'}}) }}
+			    </div>
+
+			    <div class="form-group col-md-5">
+			    	<button class="btn btn-default form-control" onclick="geocodeLocalisation()"><i class="fa fa-bullseye"></i> Geolocalisation</button>
+			    </div>
+
+			    <div class="form-group col-md-6">
+
+			        {{ form_errors(form.address.postalCode) }}
+			        {{ form_widget(form.address.postalCode, {'attr':{'onchange': 'codeAddress()', 'class': 'form-control', 'placeholder': 'Code postal'}}) }}
+			    </div>
+
+			    <div class="form-group col-md-6">
+			        {{ form_errors(form.address.city) }}
+			        {{ form_widget(form.address.city, {'attr':{'onchange': 'codeAddress()', 'class': 'form-control', 'placeholder': 'Ville'}}) }}
+			    </div>
+
+			    <div style="display: none;">
+			        {{ form_widget(form.address.lat) }}
+			    </div>
+
+			    <div style="display: none;">
+			        {{ form_widget(form.address.lng) }}
+			    </div>
+			</div>
+
+		    <div class="form-group col-md-10">
+		        {{ form_errors(form.bird) }}
+		        {{ form_widget(form.bird, {'attr':{'class': 'form-control', 'placeholder': 'Espèce'}}) }}
+		    </div>
+
+		    <div class="form-group col-md-2">
+		        {{ form_errors(form.nbObserved) }}
+		        {{ form_widget(form.nbObserved, {'attr':{'class': 'form-control', 'placeholder': 'Nombre'}}) }}
+		    </div>
+
+		    <div class="form-group col-md-12">
+		        {{ form_errors(form.description) }}
+		        {{ form_widget(form.description, {'attr':{'class': 'form-control', 'rows': '10', 'placeholder': 'Description'}}) }}
+		    </div>
+
+		    <div class="form-group col-md-12">
+		        {{ form_widget(form.valider, {'attr':{'class': 'btn btn-primary col-md-4 col-md-offset-4'}}) }}
+		    </div>
+
+		{{ form_end(form) }}
+	</div>
 </div>
 
-<button onclick="codeAddress()">Check adress</button>
-<input type="text" id="lat_checked" value="43.6380371">
-<input type="text" id="lng_checked" value="3.840581899999961">
-<button onclick="codeLatLng()">Check LatLng</button>
 
-<script type="text/javascript">
-	var geocoder;
-	var map;
-	function initialize() {
-		geocoder = new google.maps.Geocoder();
-	}
-
-  	function codeAddress() {
-  		var addressRoad = document.getElementById('observation_address_address');
-  		var postalCode = document.getElementById('observation_address_postalCode');
-  		var cityName = document.getElementById('observation_address_city');
-
-  		if (addressRoad.value != "" && postalCode.value != "" && cityName.value != "") {
-			var address = addressRoad.value;
-			address += ', ' + postalCode.value;
-			address += ' ' + cityName.value;
-			console.log(address);
-			geocoder.geocode( { 'address': address}, function(results, status) {
-			  if (status == 'OK') {
-				document.getElementById('observation_address_lgt').value = results[0].geometry.location.lng()
-				document.getElementById('observation_address_ltd').value = results[0].geometry.location.lat();
-			  } else {
-			    alert('Geocode was not successful for the following reason: ' + status);
-			  }
-			});
-		}
-  	}
-
-  	function codeLatLng() {
-		var input = document.getElementById('lat_checked').value;
-		input += ', ' + document.getElementById('lng_checked').value;
-		var latlngStr = input.split(',', 2);
-		var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
-		geocoder.geocode({'location': latlng}, function(results, status) {
-		if (status === 'OK') {
-		  if (results[1]) {
-		    console.log(results[0].formatted_address);
-		    console.log(results[0].address_components);
-		    var addressRoad = results[0].address_components[0].long_name + ', ' + results[0].address_components[1].long_name;
-		    var postalCode = results[0].address_components[6].long_name;
-		    var cityName = results[0].address_components[2].long_name;
-		    document.getElementById('observation_address_address').value = addressRoad;
-		    document.getElementById('observation_address_postalCode').value = postalCode;
-		    document.getElementById('observation_address_city').value = cityName;
-		  } else {
-		    window.alert('No results found');
-		  }
-		} else {
-		  window.alert('Geocoder failed due to: ' + status);
-		}
-		});
-  	}
-</script>
-
+{% javascripts '@AppBundle/Resources/public/js/map/geocode.js' %}
+	<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGfq5n1vQSGUbBjqfEPaKBXMp81UcrvOU&callback=initialize" async defer></script>
+
 
 {% endblock %}

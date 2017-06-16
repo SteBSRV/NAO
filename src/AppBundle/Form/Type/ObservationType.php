@@ -25,7 +25,9 @@ class ObservationType extends AbstractType
         $builder
         	->add('imageFile',         VichImageType::class, [
                 'required' => false,
-                'label' => 'Ajouter une photo',
+                'label' => 'Photo',
+                'allow_delete'  => true,
+                'download_link' => true,
             ])
             ->add('date',         DateTimeType::class, [
                 'label' => 'Date de l\'observation',
@@ -42,12 +44,12 @@ class ObservationType extends AbstractType
                 'label'       => 'Espèce',
             ])
             ->add('nbObserved',         IntegerType::class, [
-                'label'       => 'Nombre d\'oiseaux observé',
+                'label'       => 'Nombre',
             ])
             ->add('description',           TextareaType::class, [
                 'label'        => 'Description'
             ])
-            ->add('Valider',              SubmitType::class)
+            ->add('valider',              SubmitType::class)
         ;
     }
     

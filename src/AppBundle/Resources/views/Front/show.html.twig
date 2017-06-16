@@ -10,7 +10,7 @@
 	        	</div>
 				<div class="col-xs-4">
 					<center>
-		            	<img class="observation_img" src="{{ vich_uploader_asset(observation, 'image', 'AppBundle\\Entity\\Observation') }}" alt="{{ observation.bird.nomVer }}">
+		            	<img class="observation_img" src="{{ app.request.getSchemeAndHttpHost() }}/NAO/web/uploads/images/observations/{{ observation.image }}">
 	            	</center>
 				</div>
 				<div class="col-xs-8">

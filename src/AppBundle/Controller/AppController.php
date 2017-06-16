@@ -23,7 +23,10 @@ class AppController extends Controller
      */
     public function listAction(Request $request, $page = 1)
     {
-        return $this->render('AppBundle:Front:list.html.twig');
+        $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation');
+        $observations = $repository->findAll();
+
+        return $this->render('AppBundle:Front:list.html.twig', compact('observations'));
     }
 
     /**

@@ -40,6 +40,10 @@ a {
 }
 .btn-primary{
 	text-align: center;
+	background-color: #95E4F9!important;
+	background-image: none!important;
+	border-radius: 20px!important;
+	color: #000!important;
 }
 /* End global style */
 
@@ -166,9 +170,17 @@ a {
 }
 #participate_form {
 	margin-top: 80px;
-	height: 80%;
+	padding: 50px;
 	border-radius: 20px;
 	border: 2px solid #95E4F9;
+}
+.btn-file{
+	height: 140px;
+    width: 140px;
+    border-radius: 70px!important;
+    border: 6px solid #a2a4a6!important;
+    padding-top: 28px!important;
+    margin-left: 25%;
 }
 
 .map-container{

@@ -46,16 +46,16 @@ class Address
     /**
      * @var float
      *
-     * @ORM\Column(name="longitude", type="float", nullable=true)
+     * @ORM\Column(name="latitude", type="float", nullable=true)
      */
-    protected $lgt;
+    protected $lat;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="latitude", type="float", nullable=true)
+     * @ORM\Column(name="longitude", type="float", nullable=true)
      */
-    protected $ltd;
+    protected $lng;
 
     public function __construct()
     {
@@ -145,50 +145,50 @@ class Address
     }
 
     /**
-     * Set lgt
+     * Set lat
      *
-     * @param float $lgt
+     * @param float $lat
      *
      * @return Address
      */
-    public function setLgt($lgt)
+    public function setLat($lat)
     {
-        $this->lgt = $lgt;
+        $this->lat = $lat;
 
         return $this;
     }
 
     /**
-     * Get lgt
+     * Get lat
      *
      * @return float
      */
-    public function getLgt()
+    public function getLat()
     {
-        return $this->lgt;
+        return $this->lat;
     }
 
     /**
-     * Set ltd
+     * Set lng
      *
-     * @param float $ltd
+     * @param float $lng
      *
      * @return Address
      */
-    public function setLtd($ltd)
+    public function setLng($lng)
     {
-        $this->ltd = $ltd;
+        $this->lng = $lng;
 
         return $this;
     }
 
     /**
-     * Get ltd
+     * Get lng
      *
      * @return float
      */
-    public function getLtd()
+    public function getLng()
     {
-        return $this->ltd;
+        return $this->lng;
     }
 }

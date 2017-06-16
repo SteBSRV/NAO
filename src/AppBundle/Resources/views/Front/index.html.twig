@@ -56,53 +56,59 @@
 	<div id="home_categories" class="col-xs-12">
         <div class="home_category col-xs-12 col-sm-4">
             <div class="category">
-                <div class="category_head">
-                    <center>
-                    	{% image '@AppBundle/Resources/public/images/home_observe.png' %}
-                    		<img class="category_img" src="{{ asset_url }}">
-						{% endimage %}
-                    </center>
-                </div>
-                <div class="category_content">
-                    <h3 class="category_title">Observations</h3>
-                    <p>
-                        Lorem ipsum ...
-                    </p>
-                </div>
+                <a href="{{ path('observations') }}">
+                    <div class="category_head">
+                        <center>
+                        	{% image '@AppBundle/Resources/public/images/home_observe.png' %}
+                        		<img class="category_img" src="{{ asset_url }}">
+    						{% endimage %}
+                        </center>
+                    </div>
+                    <div class="category_content">
+                        <h3 class="category_title">Observations</h3>
+                        <p>
+                            Lorem ipsum ...
+                        </p>
+                    </div>
+                </a>
             </div>
         </div>
         <div class="home_category col-xs-12 col-sm-4">
             <div class="category">
-                <div class="category_head">
-                    <center>
-                    	{% image '@AppBundle/Resources/public/images/home_binoculars.png' %}
-                    		<img class="category_img" src="{{ asset_url }}">
-						{% endimage %}
-                    </center>
-                </div>
-                <div class="category_content">
-                    <h3 class="category_title">Participer</h3>
-                    <p>
-                        Lorem ipsum ...
-                    </p>
-                </div>
+                <a href="{{ path('participate') }}">
+                    <div class="category_head">
+                        <center>
+                        	{% image '@AppBundle/Resources/public/images/home_binoculars.png' %}
+                        		<img class="category_img" src="{{ asset_url }}">
+    						{% endimage %}
+                        </center>
+                    </div>
+                    <div class="category_content">
+                        <h3 class="category_title">Participer</h3>
+                        <p>
+                            Lorem ipsum ...
+                        </p>
+                    </div>
+                </a>
             </div>
         </div>
         <div class="home_category col-xs-12 col-sm-4">
             <div class="category">
-                <div class="category_head">
-                    <center>
-                    	{% image '@AppBundle/Resources/public/images/home_map.png' %}
-                    		<img class="category_img" src="{{ asset_url }}">
-                    	{% endimage %}
-                    </center>
-                </div>
-                <div class="category_content">
-                    <h3 class="category_title">Carte intéractive</h3>
-                    <p>
-                        Lorem ipsum ...
-                    </p>
-                </div>
+                <a href="{{ path('map') }}">
+                    <div class="category_head">
+                        <center>
+                        	{% image '@AppBundle/Resources/public/images/home_map.png' %}
+                        		<img class="category_img" src="{{ asset_url }}">
+                        	{% endimage %}
+                        </center>
+                    </div>
+                    <div class="category_content">
+                        <h3 class="category_title">Carte intéractive</h3>
+                        <p>
+                            Lorem ipsum ...
+                        </p>
+                    </div>
+                </a>
             </div>
         </div>
     </div>

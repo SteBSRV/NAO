@@ -93,7 +93,7 @@ vich_uploader:
     db_driver: orm
     mappings:
         observations_images:
-            uri_prefix:         '%app.path.observations_images%'
+            uri_prefix:         /images/observations
             upload_destination: '%kernel.root_dir%/../web/uploads/images/observations'
             namer:              'vich_uploader.namer_uniqid'
             inject_on_load:     true
