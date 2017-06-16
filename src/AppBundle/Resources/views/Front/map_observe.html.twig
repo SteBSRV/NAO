@@ -19,8 +19,12 @@
 </div>
 
 
+<script type="text/javascript">
+    var latitudeObserved = {{ observation.address.lat }};
+    var longitudeObserved = {{ observation.address.lng }};
+</script>
 
-{% javascripts '@AppBundle/Resources/public/js/map/init.js' %}
+{% javascripts '@AppBundle/Resources/public/js/map/init_observe.js' %}
 	<script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGfq5n1vQSGUbBjqfEPaKBXMp81UcrvOU&callback=initMap" async defer></script>

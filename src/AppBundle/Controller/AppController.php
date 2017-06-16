@@ -74,6 +74,20 @@ class AppController extends Controller
     }
 
     /**
+     * @Route("/carte-interactive/{id}", name="map_observe")
+     */
+    public function mapObserveAction(Request $request)
+    {
+        $routeParams = $request->attributes->get('_route_params');
+        $id = $routeParams['id'];
+
+        $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation');
+        $observation = $repository->find($id);
+
+        return $this->render('AppBundle:Front:map_observe.html.twig', compact('observation'));
+    }
+
+    /**
      * @Route("/faq/", name="faq")
      */
     public function faqAction(Request $request)

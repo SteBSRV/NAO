@@ -48,16 +48,14 @@ class Observation
     /**
      * @var object
      *
-     * @ORM\Column(name="address", type="object", nullable=true)
-     * @ORM\ManyToOne(targetEntity="Address", cascade={"persist"})
-     * @ORM\JoinColumn(name="address", referencedColumnName="id")
+     * @ORM\OneToOne(targetEntity="Address", cascade={"all", "remove"})
+     * @ORM\JoinColumn(nullable=false)
      */
     protected $address;
 
     /**
      * @var object
      *
-     * @ORM\Column(name="user", type="object", nullable=true)
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
@@ -66,7 +64,6 @@ class Observation
     /**
      * @var object
      *
-     * @ORM\Column(name="bird", type="object", nullable=true)
      * @ORM\ManyToOne(targetEntity="Taxref")
      * @ORM\JoinColumn(name="bird", referencedColumnName="id", nullable=true)
      */
@@ -77,7 +74,7 @@ class Observation
      *
      * @ORM\Column(name="image", type="string", length=255)
      */
-    protected $image = '5943b32b391e5.png';
+    protected $image = '5943b32b391e5.png'; // Image par défaut (dossier uploads/images/observations/)
 
     /** 
      * @var File
