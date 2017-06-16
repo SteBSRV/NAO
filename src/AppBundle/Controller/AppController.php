@@ -94,20 +94,5 @@ class AppController extends Controller
     {
         return $this->render('AppBundle:Front:faq.html.twig');
     }
-
-    /**
-     * @Route("/mon_compte/", name="account")
-     */
-    public function accountAction(Request $request)
-    {
-       
-    }
-
-    /**
-     * @Route("/logout/", name="logout")
-     */
-    public function logoutAction(Request $request)
-    {
-        
-    }
+    
 }
