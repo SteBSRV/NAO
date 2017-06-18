@@ -1,6 +1,6 @@
 @font-face{
 	font-family: "TamarilloJF";
-	src: url("css/fonts/TamarilloJF.ttf");
+	src: url("fonts/TamarilloJF.ttf");
 }
 
 /* Global style */
@@ -38,7 +38,7 @@ a {
 	text-align: center;
 	margin: auto;
 }
-.btn-primary{
+.btn-info{
 	text-align: center;
 	background-color: #95E4F9!important;
 	background-image: none!important;
@@ -54,11 +54,10 @@ a {
 #diapo, #myCarousel, .carousel-inner, .item, .item-active{
     padding: 0;
     margin: 0;
-    min-height: 200px;
-    max-height: 400px;
+    max-height: 500px;
 }
 .carousel-caption{
-	background-color: rgba(255,255,255,0.2);
+	background-color: rgba(255,255,255,0);
 	padding-top: 0;
 }
 
@@ -117,8 +116,8 @@ a {
 	height: 200px;
 	background-color: #F1F6E8;
 }
-.observation_wrapper{
-
+#observations_wrapper{
+	padding-top: 20px;
 }
 .observation{
 	border: 2px solid #A6AFA8;
@@ -131,6 +130,7 @@ a {
 }
 .observation_img{
 	height: 100px;
+	width: 100px;
 	border-radius: 50px;
 	border: 2px solid #A6AFA8;
 	text-align: center;
@@ -144,10 +144,16 @@ a {
 	color: #777;
 }
 .observation_desc{
-
+	margin-top: 20px;
 }
 .observation_map{
 	text-align: center;
+}
+.observation_show {
+	background: none;
+	border: none;
+	margin-top: 40px;
+	margin-bottom: 100px;
 }
 .bookmark{
 	text-align: right;
@@ -165,22 +171,25 @@ a {
 .participate {
 	background-image: url("../images/bg_participate.jpg");
 	background-position: center;
-	background-size: 100%;
-	height: 90%;
+	background-size: 100% 100%;
 }
 #participate_form {
-	margin-top: 80px;
+	margin-top: 150px;
+	margin-bottom: 150px;
 	padding: 50px;
 	border-radius: 20px;
 	border: 2px solid #95E4F9;
 }
 .btn-file{
-	height: 140px;
-    width: 140px;
-    border-radius: 70px!important;
+	height: 180px;
+    width: 180px;
+    border-radius: 90px!important;
     border: 6px solid #a2a4a6!important;
-    padding-top: 28px!important;
-    margin-left: 25%;
+    padding-top: 40px!important;
+    margin-left: 20%;
+}
+#help_participate {
+	color: white;
 }
 
 .map-container{
@@ -207,6 +216,80 @@ a {
     margin-top: 50vh;
 }
 
+.login {
+	background-image: url("../images/bg_login.jpg");
+	background-position: center;
+	background-size: 100% 100%;
+	color: #fff;
+}
+.login_box{
+	margin: 150px auto;
+    border: 2px solid #55cadb;
+    border-radius: 40px;
+    padding: 50px;
+}
+#username, #password {
+	border: none;
+	background: none;
+	border-bottom: 2px solid #fff;
+	color: #fff;
+}
+#google_connect {
+	color: #DA3829;
+}
+#facebook_connect {
+	color: #3b5998;
+}
+
+.registration {
+	padding: 40px;
+}
+.blue_text {
+	color: #55cadb;
+}
+#registration_content {
+	border: 2px solid #aaa;
+	padding: 20px;
+}
+#registration_promo {
+	background-image: url("../images/bg_login.jpg");
+	background-position: center;
+	height: 500px;
+	color: #fff;
+	border: 2px solid #aaa;
+	padding: 40px;
+}
+#registration_promo h2 {
+	font-family: "TamarilloJF";
+	color: #fff;
+	font-size: 40px;
+	padding: 0 60px;
+}
+#registration_promo h3 {
+	padding-top: 60px;
+	color: #fff;
+}
+#registration_promo p {
+	font-size: 10px;
+}
+#promo_content {
+	width: 60%;
+}
+.avis_img {
+	margin-top: 20px;
+	width: 140px;
+	height: 140px;
+}
+.avis_content {
+	padding: 10px;
+	font-size: 10px;
+	text-align: center;
+}
+.fa-star {
+	color: #FFBB00!important;
+	margin-bottom: 60px;
+}
+
 #footer-wrapper {
     height: 60px;
     margin-left: -15px;
@@ -217,6 +300,7 @@ a {
 /* Responsive tablet */
 @media(min-width:768px) {
 	.observation_img{
+		width: 200px;
 		height: 200px;
 		border-radius: 100px;
 	}

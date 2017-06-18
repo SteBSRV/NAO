@@ -1,28 +1,43 @@
 {% extends 'HWIOAuthBundle::layout.html.twig' %}
 
 {% block hwi_oauth_content %}
-    {% if error is defined and error %}
-        <span>{{ error }}</span>
-    {% endif %}
-    <div class="row mg-t-50">
-        <div class="col-md-offset-3 col-md-6 login_box">
-            {% image '@AppBundle/Resources/public/images/nao_icon.png' %}
-            <img src="{{ asset_url }}" class="center-block" alt="logo icon" width="150">
-            {% endimage %}
-            {{ render(controller('FOSUserBundle:Security:login')) }}
-            {% for owner in hwi_oauth_resource_owners() %}
-            <a href="{{ hwi_oauth_login_url(owner) }}">{{ owner | capitalize | trans({}, 'HWIOAuthBundle') }}</a> <br />
-            {% endfor %}
-        </div>
-    </div>
-    <style>
-        .mg-t-50{
-            margin-top: 50px;
-        }
-        .login_box{
-            border: 3px solid #55cadb;
-            border-radius: 25px;
-            padding: 50px;
+    <style type="text/css">
+        header, #footer-wrapper{
+            background-color: #55cadb!important;
         }
     </style>
+    <div class="row login">
+
+        {% if error is defined and error %}
+            <span>{{ error }}</span>
+        {% endif %}
+
+        <div class="col-md-offset-2 col-md-8 login_box">
+
+            {% image '@AppBundle/Resources/public/images/nao_icon.png' %}
+                <img src="{{ asset_url }}" class="center-block" alt="logo icon" width="150">
+            {% endimage %}
+
+            {{ render(controller('FOSUserBundle:Security:login')) }}
+
+            <p class="text-center">Ou simplement via :</p>
+
+            <div class="col-md-3 col-md-offset-5">
+                <span>
+                    <a id="facebook_connect" href="{{ hwi_oauth_login_url('facebook') }}" class="fa fa-2x fa-stack">
+                            <i class="fa fa-circle-o fa-stack-2x"></i>
+                            <i class="fa fa-facebook fa-stack-1x"></i>
+                    </a>
+                    <a id="google_connect" href="{{ hwi_oauth_login_url('google') }}" class="fa fa-2x fa-stack">
+                            <i class="fa fa-circle-o fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x"></i>
+                    </a>
+                </span>
+            </div>
+            <div class="col-sm-12">
+                <br><br>
+                <p class="text-center"><a href="{{ path('fos_user_registration_register') }}">Pas de compte ? Inscrivez-vous ici.</a></p>
+            </div>
+        </div>
+    </div>
 {% endblock hwi_oauth_content %}
