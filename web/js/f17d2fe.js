@@ -360,8 +360,6 @@ function initMap() {
   {name: 'N.A.O.'});
 
 
-  
-
   map = new google.maps.Map(document.getElementById('map-observe'), {
     center: {lat: 46.626699, lng: 2.646070},
     zoom: 7,
@@ -374,16 +372,6 @@ function initMap() {
 
   map.mapTypes.set('n.a.o.', styledMapType);
   map.setMapTypeId('n.a.o.');
-  
-  // Marker
-  var infoWindow = new google.maps.InfoWindow({map: map});
-
-  var pos = new google.maps.LatLng(latitudeObserved, longitudeObserved);
-
-  infoWindow.setPosition(pos);
-  infoWindow.setContent('<img src="' + imgObserved + '" style="width: 200px;height: 300px;">');
-  map.setCenter(pos);
-  map.setZoom(12);
   
   // LocationControl
   var locationControlDiv = document.createElement('div');

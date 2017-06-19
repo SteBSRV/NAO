@@ -18,8 +18,8 @@ parameters:
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
 
-    # Upload observations images path
-    app.path.observations_images: /uploads/images/observations
+    # Upload images root local path 
+    local_server_dir:
 
     # Oauth id/secret
     facebook_client_id: 

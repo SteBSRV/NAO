@@ -3,9 +3,46 @@
 {% block body %}
 <div class="row map-container">
 	<div class="filter">
-        <form>
+        {{ form_start(form) }}
+            {{ form_errors(form) }}
 
-        </form>
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="form-group col-md-11 col-md-offset-1">
+                        {{ form_errors(form.bird) }}
+                        {{ form_widget(form.bird, {'attr':{'class': 'form-control'}}) }}
+                    </div>
+                    <div class="form-group col-md-5 col-md-offset-7">
+                        {{ form_errors(form.region) }}
+                        {{ form_widget(form.region, {'attr':{'class': 'form-control', 'placeholder': 'Region'}}) }}
+                    </div>
+                    <div class="form-group col-md-5 col-md-offset-7">
+                        {{ form_errors(form.popularity) }}
+                        {{ form_widget(form.popularity, {'attr':{'class': 'form-control'}}) }}
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group col-md-11">
+                        {{ form_errors(form.dateSince) }}
+                        {{ form_widget(form.dateSince, {'attr':{'class': 'form-control'}}) }}
+                    </div>
+                    <div class="form-group col-md-11">
+                        {{ form_errors(form.city) }}
+                        {{ form_widget(form.city, {'attr':{'class': 'form-control', 'placeholder': 'Ville'}}) }}
+                    </div>
+                    <div class="form-group col-md-11">
+                        {{ form_errors(form.nbObserved) }}
+                        {{ form_widget(form.nbObserved, {'attr':{'class': 'form-control', 'placeholder': 'Nombre'}}) }}
+                    </div>
+                </div>
+
+                <div class="form-group col-md-2">
+                    {{ form_widget(form.valider, {'attr':{'class': 'btn btn-info col-md-9'}}) }}
+                </div>
+            </div>
+
+        {{ form_end(form) }}
     </div>
     <div id="map-observe"></div>
     <div id="loading" style="display:none">
@@ -18,7 +55,27 @@
 	</div>
 </div>
 
+<script type="text/javascript">
+    {% if observations is defined %}
+        var observations = {};
 
+        {% for observation in observations %}
+            var latitudeObserved = {{ observation.address.lat }};
+            var longitudeObserved = {{ observation.address.lng }};
+            var birdObserved = '{{ observation.bird.nomVer }}';
+            var nbObserved = {{ observation.nbObserved }};
+            var dateObserved = '{{ observation.date | date('Y-m-d H:i:s') }}';
+            var imgObserved = '{{ vich_uploader_asset(observation, 'imageFile') }}';
+            
+            // Rajout de l'observation à la liste des observations
+            observations[{{ loop.index0 }}] = {lat: latitudeObserved, lng: longitudeObserved, bird: birdObserved, nbr: nbObserved, date: dateObserved, img: imgObserved};
+        {% endfor %}
+
+        for(var index in observations) { 
+            console.log(observations[index]); 
+        }
+    {% endif %}
+</script>
 
 {% javascripts '@AppBundle/Resources/public/js/map/init.js' %}
 	<script src="{{ asset_url }}"></script>

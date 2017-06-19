@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Observation;
 use AppBundle\Form\Type\ObservationType;
+use AppBundle\Entity\ObservationFilter;
+use AppBundle\Form\Type\ObservationFilterType;
 
 class AppController extends Controller
 {
@@ -70,7 +72,19 @@ class AppController extends Controller
      */
     public function mapAction(Request $request)
     {
-        return $this->render('AppBundle:Front:map.html.twig');
+        $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation');
+        $observationFilter = new ObservationFilter();
+
+        $form = $this->get('form.factory')->create(ObservationFilterType::class, $observationFilter);
+
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+
+            $observations = $repository->search($observationFilter->toArray());
+
+            return $this->render('AppBundle:Front:map.html.twig', ['observations' => $observations, 'form' => $form->createView()]);
+        }
+
+        return $this->render('AppBundle:Front:map.html.twig', ['form' => $form->createView()]);
     }
 
     /**

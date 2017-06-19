@@ -20,9 +20,8 @@ function codeAddress() {
 		if (status == 'OK') {
 			document.getElementById('observation_address_lat').value = results[0].geometry.location.lat();
 			document.getElementById('observation_address_lng').value = results[0].geometry.location.lng();
-			document.getElementById('observation_address_region').value = results[0].address_components[4].long_name;
 		} else {
-			alert('Impossible d\'obtenir les coordonnées (nécessaire pour la carte intéractive) à partir de cette adresse : ' + status);
+			alert('Geocode was not successful for the following reason: ' + status);
 		}
 	});
 }
@@ -68,14 +67,12 @@ function handleAddressForm(position) {
 				var addressRoad = results[0].address_components[0].long_name + ', ' + results[0].address_components[1].long_name;
 				var postalCode = results[0].address_components[6].long_name;
 				var cityName = results[0].address_components[2].long_name;
-				var regionName = results[0].address_components[4].long_name;
 
 				document.getElementById('observation_address_address').value = addressRoad;
 				document.getElementById('observation_address_postalCode').value = postalCode;
 				document.getElementById('observation_address_city').value = cityName;
 				document.getElementById('observation_address_lat').value = position.coords.latitude;
 				document.getElementById('observation_address_lng').value = position.coords.longitude;
-				document.getElementById('observation_address_region').value = regionName;
 			} else {
 				window.alert('Aucun coordonnées correspondant à l\'adresse');
 			}

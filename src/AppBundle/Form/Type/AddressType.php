@@ -26,6 +26,9 @@ class AddressType extends AbstractType
             ->add('city',       TextType::class, [
                 'label'    => 'Ville',
             ])
+            ->add('region',       TextType::class, [
+                'label'    => 'Region',
+            ]) 
             ->add('lat',       NumberType::class, [
                 'label'    => 'Longitude',
                 'scale'    => 10,

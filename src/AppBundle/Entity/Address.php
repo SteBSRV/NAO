@@ -43,6 +43,13 @@ class Address
     protected $city;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="region", type="string", length=255)
+     */
+    protected $region;
+
+    /**
      * @var float
      *
      * @ORM\Column(name="latitude", type="float", nullable=true)
@@ -189,5 +196,29 @@ class Address
     public function getLng()
     {
         return $this->lng;
+    }
+
+    /**
+     * Set region
+     *
+     * @param string $region
+     *
+     * @return Address
+     */
+    public function setRegion($region)
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
+    /**
+     * Get region
+     *
+     * @return string
+     */
+    public function getRegion()
+    {
+        return $this->region;
     }
 }

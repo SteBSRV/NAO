@@ -51,11 +51,15 @@
 			    <div style="display: none;">
 			        {{ form_widget(form.address.lng) }}
 			    </div>
+
+			    <div style="display: none;">
+			        {{ form_widget(form.address.region) }}
+			    </div>
 			</div>
 
 		    <div class="form-group col-md-10">
 		        {{ form_errors(form.bird) }}
-		        {{ form_widget(form.bird, {'attr':{'class': 'form-control', 'placeholder': 'Espèce'}}) }}
+		        {{ form_widget(form.bird, {'attr':{'class': 'form-control'}}) }}
 		    </div>
 
 		    <div class="form-group col-md-2">

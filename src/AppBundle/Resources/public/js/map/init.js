@@ -379,4 +379,21 @@ function initMap() {
 
   map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(locationControlDiv);
 
+  // Marker
+  if (observations != undefined) {
+    console.log(observations);
+    for(var index in observations) {
+      var infoWindow = new google.maps.InfoWindow({map: map});
+      var pos = new google.maps.LatLng(observations[index].lat, observations[index].lng);
+
+      infoWindow.setPosition(pos);
+      infoWindow.setContent('<img src="' + observations[index].img + '" style="width: 200px;">');
+    }
+  }
+
+  /*
+    map.setCenter(pos);
+    map.setZoom(12);
+  */
+
 }   
