@@ -35,14 +35,17 @@ class ObservationFilterType extends AbstractType
                 'placeholder' => 'Période',
                 'label' => 'Date',
                 'required' => false,
+                'disabled' => true,
             ])
             ->add('region',       TextType::class, [
             	'required' => false,
             	'label' => 'Region',
+                'disabled' => true,
             ])
             ->add('city',       TextType::class, [
                 'required' => false,
                 'label' => 'Ville',
+                'disabled' => true,
             ])
             ->add('popularity', ChoiceType::class, [
                 'choices'  => [
@@ -52,10 +55,12 @@ class ObservationFilterType extends AbstractType
                 'label' => 'Popularité',
                 'placeholder' => 'Popularité',
                 'required' => false,
+                'disabled' => true,
             ])
             ->add('nbObserved',         IntegerType::class, [
                 'label'       => 'Nombre',
                 'required' => false,
+                'disabled' => true,
             ])
             ->add('valider',              SubmitType::class)
         ;

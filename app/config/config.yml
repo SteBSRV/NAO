@@ -121,13 +121,38 @@ assetic:
     filters:
         cssrewrite: ~
 
+# Vich Uploader Configuration
 vich_uploader:
     db_driver: orm
     mappings:
         observations_images:
-            uri_prefix:         '%local_server_dir%/uploads/images/observations'
+            uri_prefix:         'uploads/images/observations'
             upload_destination: '%kernel.root_dir%/../web/uploads/images/observations'
             namer:              'vich_uploader.namer_uniqid'
             inject_on_load:     true
             delete_on_update:   true
             delete_on_remove:   true
+
+# Liip Imagine Configuration
+liip_imagine:
+    resolvers:
+        default:
+            web_path:
+                web_root: '%kernel.root_dir%/../web'
+                cache_prefix: 'uploads/cache'
+
+    loaders:
+        default:
+            filesystem:
+                data_root: '%kernel.root_dir%/../web/'
+
+    filter_sets:
+        cache: ~
+        my_thumb:
+            quality: 50
+            filters:
+                thumbnail: { size: [300, 200], mode: outbound }
+        my_middle:
+            quality: 75
+            filters:
+                thumbnail: { size: [600, 400], mode: outbound }

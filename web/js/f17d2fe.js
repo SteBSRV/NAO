@@ -379,4 +379,30 @@ function initMap() {
 
   map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(locationControlDiv);
 
+  // Marker
+  if (typeof(observations) != undefined) {
+    for(var index in observations) {
+      /*var infoWindow = new google.maps.InfoWindow({map: map});*/
+      var posObs = new google.maps.LatLng(observations[index].lat, observations[index].lng);
+
+      /*infoWindow.setPosition(pos);
+      infoWindow.setContent('<img src="' + observations[index].img + '" style="width: 200px;">');*/
+      var cityCircle = new google.maps.Circle({
+        strokeColor: '#55CADB',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#254460',
+        fillOpacity: 0.35,
+        map: map,
+        center: posObs,
+        radius: Math.sqrt(observations[index].nbr) * 10000
+      });
+    }
+  }
+
+  /* Map events */
+
+
+  
+
 }   

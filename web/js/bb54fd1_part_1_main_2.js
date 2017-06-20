@@ -15,4 +15,9 @@ $(document).ready(function() {
     		$(response).slideUp("slow");
   		}
   	});
+    $("a.single_image").fancybox();
+    $("#start_button").click(function() {
+      $("#first_page").hide("slow");
+      $("#second_page").show("slow");
+    });
 })

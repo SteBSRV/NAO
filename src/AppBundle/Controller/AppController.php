@@ -21,6 +21,15 @@ class AppController extends Controller
     }
 
     /**
+     * @Route("/demarrage", name="startpage")
+     */
+    public function starterAction(Request $request)
+    {
+        // Tester si utisateur a déjà visiter le site, si oui, rediriger vers l'accueil
+        return $this->render('AppBundle:Front:startpage.html.twig');
+    }
+
+    /**
      * @Route("/observations/page-{page}", name="observations", requirements={"page": "\d+"})
      */
     public function listAction(Request $request, $page = 1)

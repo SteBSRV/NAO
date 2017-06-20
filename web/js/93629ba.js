@@ -375,12 +375,13 @@ function initMap() {
   map.mapTypes.set('n.a.o.', styledMapType);
   map.setMapTypeId('n.a.o.');
   
+  // Marker
   var infoWindow = new google.maps.InfoWindow({map: map});
 
   var pos = new google.maps.LatLng(latitudeObserved, longitudeObserved);
 
   infoWindow.setPosition(pos);
-  infoWindow.setContent('Observé ici :)');
+  infoWindow.setContent('<img src="' + imgObserved + '" style="width: 200px;height: 300px;">');
   map.setCenter(pos);
   map.setZoom(12);
   
