@@ -1,6 +1,6 @@
 @font-face{
 	font-family: "TamarilloJF";
-	src: url("../../css/fonts/TamarilloJF.ttf");
+	src: url("../fonts/TamarilloJF.ttf");
 }
 
 /* Starter page */
@@ -30,7 +30,7 @@ h2 {
 }
 
 #first_page {
-	background-image: url('../../images/032c915.jpg');
+	background-image: url('../images/032c915.jpg');
 	background-size: 100% 100%;
 	min-height: 100%;
     min-width: 100%;

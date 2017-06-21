@@ -381,7 +381,7 @@ function initMap() {
   var pos = new google.maps.LatLng(latitudeObserved, longitudeObserved);
 
   infoWindow.setPosition(pos);
-  infoWindow.setContent('<img src="' + imgObserved + '" style="width: 200px;height: 300px;">');
+  infoWindow.setContent('<img src="/' + imgObserved + '" style="width: 200px;height: 300px;">');
   map.setCenter(pos);
   map.setZoom(12);
   
