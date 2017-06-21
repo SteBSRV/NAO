@@ -403,7 +403,7 @@ function initMap() {
       google.maps.event.addListener(cityCircle,"mouseover",function(){
         infoWindow.setMap(map);
         infoWindow.setPosition(posObs);
-        infoWindow.setContent('<img src="' + observations[index].img + '" style="width: 300px;height: 200px;">');
+        infoWindow.setContent('<img src="/' + observations[index].img + '" style="width: 300px;height: 200px;">');
       }); 
 
       google.maps.event.addListener(cityCircle,"mouseout",function(){

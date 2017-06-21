@@ -9,7 +9,7 @@
             </div>
             <div class="col-xs-4 col-md-3">
                 <center>
-                    <a class="single_image" href="{{ vich_uploader_asset(observation, 'imageFile') }}"><img class="observation_img text-center" src="{{ vich_uploader_asset(observation, 'imageFile') | imagine_filter('my_middle') }}" alt="{{ observation.bird.nomVer }}" /></a>
+                    <a class="single_image" href="/{{ vich_uploader_asset(observation, 'imageFile') }}"><img class="observation_img text-center" src="{{ vich_uploader_asset(observation, 'imageFile') | imagine_filter('my_middle') }}" alt="{{ observation.bird.nomVer }}" /></a>
                 </center>
             </div>
             <div class="observation_content col-xs-7 col-xs-offset-1  col-md-offset-0 col-md-6 col-lg-7">
