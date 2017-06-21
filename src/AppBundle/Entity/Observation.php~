@@ -330,38 +330,4 @@ class Observation
     {
         return $this->state;
     }
-
-    /**
-     * Add userObservation
-     *
-     * @param \AppBundle\Entity\UserObservation $userObservation
-     *
-     * @return Observation
-     */
-    public function addUserObservation(\AppBundle\Entity\UserObservation $userObservation)
-    {
-        $this->userObservation[] = $userObservation;
-
-        return $this;
-    }
-
-    /**
-     * Remove userObservation
-     *
-     * @param \AppBundle\Entity\UserObservation $userObservation
-     */
-    public function removeUserObservation(\AppBundle\Entity\UserObservation $userObservation)
-    {
-        $this->userObservation->removeElement($userObservation);
-    }
-
-    /**
-     * Get userObservation
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getUserObservation()
-    {
-        return $this->userObservation;
-    }
 }
