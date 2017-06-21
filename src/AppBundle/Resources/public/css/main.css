@@ -237,3 +237,12 @@ a {
 
 }
 /* End responsive desktop */
+
+.mg-t-50{
+	margin-top: 50px;
+}
+.login_box{
+	border: 3px solid #55cadb;
+	border-radius: 25px;
+	padding: 50px;
+}

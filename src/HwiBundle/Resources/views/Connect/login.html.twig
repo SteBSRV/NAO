@@ -10,19 +10,26 @@
             <img src="{{ asset_url }}" class="center-block" alt="logo icon" width="150">
             {% endimage %}
             {{ render(controller('FOSUserBundle:Security:login')) }}
-            {% for owner in hwi_oauth_resource_owners() %}
-            <a href="{{ hwi_oauth_login_url(owner) }}">{{ owner | capitalize | trans({}, 'HWIOAuthBundle') }}</a> <br />
-            {% endfor %}
+            <div class="row">
+                <p class="text-center">Ou simplement via</p>
+                {% for owner in hwi_oauth_resource_owners() %}
+                    {# <a href="{{ hwi_oauth_login_url(owner) }}">{{ owner | capitalize | trans({}, 'HWIOAuthBundle') }}</a> <br />#}
+                    {% if owner == "facebook" %}
+                        <div class="col-sm-1 col-sm-offset-5">
+                        {% image '@AppBundle/Resources/public/images/facebook.png' %}
+                            <a href="{{ hwi_oauth_login_url(owner) }}"><img src="{{ asset_url }}" class="center-block" alt="logo icon" width="50"></a>
+                        {% endimage %}
+                        </div>
+                    {% else %}
+                        <div class="col-sm-1">
+                        {% image '@AppBundle/Resources/public/images/google.png' %}
+                            <a href="{{ hwi_oauth_login_url(owner) }}"><img src="{{ asset_url }}" class="center-block" alt="logo icon" width="50"></a>
+                        {% endimage %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                <div class="col-md-12"><p class="text-center"><a href="{{ path('fos_user_registration_register') }}">Pas de compte? Inscrivez-vous</a></p></div>
+            </div>
         </div>
     </div>
-    <style>
-        .mg-t-50{
-            margin-top: 50px;
-        }
-        .login_box{
-            border: 3px solid #55cadb;
-            border-radius: 25px;
-            padding: 50px;
-        }
-    </style>
 {% endblock hwi_oauth_content %}

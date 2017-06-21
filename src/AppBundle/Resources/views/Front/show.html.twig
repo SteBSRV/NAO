@@ -3,6 +3,12 @@
 {% block body %}
 <div class="row">
 	<div id="observations_wrapper" class="col-xs-12">
+		{% for message in app.session.flashbag.get('success') %}
+			<div class="alert alert-dismissible alert-success" id="success">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				{{ message }}
+			</div>
+		{% endfor %}
         <div class="observation col-xs-12">
 	        <div class="observation_head col-xs-12">
 	        	<div class="col-xs-12">
@@ -25,7 +31,8 @@
 	            </p>
 	        </div>
 	        <div class="observation_map visible-lg col-lg-2">
-	            <p class="bookmark">Ajouter au favoris <i class="fa fa-heart-o"></i></p>
+				{{ render(controller('AppBundle:User:addFavoriteObservation', {id: observation.id})) }}
+	            <!-- <p class="bookmark">Ajouter au favoris <i class="fa fa-heart-o"></i></p>-->
 	            <center>
 	            	{% image '@AppBundle/Resources/public/images/btn_map.png' %}
 	                	<img class="observation_map_link" src="{{ asset_url }}">

@@ -48,19 +48,24 @@ class AppController extends Controller
      */
     public function postAction(Request $request)
     {
+        $user = $this->getUser();
+        if(null == $user){
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+
         $em = $this->getDoctrine()->getManager();
         $observation = new Observation();
 
         $form = $this->get('form.factory')->create(ObservationType::class, $observation);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            $observation->setUser($user);
             $em->persist($observation);
             $em->flush();
             $request->getSession()->getFlashBag()->add('info','Observation bien ajoutée.');
             $id = $observation->getId();
             return $this->redirectToRoute('observation', compact('id','observation'));
         }
-
 
         return $this->render('AppBundle:Front:post.html.twig', ['form' => $form->createView()]);
     }
@@ -94,5 +99,5 @@ class AppController extends Controller
     {
         return $this->render('AppBundle:Front:faq.html.twig');
     }
-    
+
 }
