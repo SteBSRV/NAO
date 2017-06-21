@@ -13,21 +13,24 @@ use AppBundle\Form\Type\ObservationFilterType;
 class AppController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/", name="startpage")
+     */
+    public function starterAction(Request $request)
+    {
+        if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED') == true) {
+            return $this->redirectToRoute('homepage');
+        }
+        // Tester si utisateur a déjà visiter le site, si oui, rediriger vers l'accueil
+        return $this->render('AppBundle:Front:startpage.html.twig');
+    }
+
+    /**
+     * @Route("/accueil", name="homepage")
      */
     public function indexAction(Request $request)
     {
         return $this->render('AppBundle:Front:index.html.twig');
-    }
-
-    /**
-     * @Route("/demarrage", name="startpage")
-     */
-    public function starterAction(Request $request)
-    {
-        // Tester si utisateur a déjà visiter le site, si oui, rediriger vers l'accueil
-        return $this->render('AppBundle:Front:startpage.html.twig');
-    }
+    } 
 
     /**
      * @Route("/observations/page-{page}", name="observations", requirements={"page": "\d+"})

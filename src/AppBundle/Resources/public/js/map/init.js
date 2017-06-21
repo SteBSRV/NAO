@@ -1,11 +1,11 @@
 // Preloader
 function showLoading() {
   $("#loading").show();
-}
+};
 
 function hideLoading() {
   $("#loading").hide();
-}
+};
 
 
 var map;
@@ -380,10 +380,11 @@ function initMap() {
   map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(locationControlDiv);
 
   // Marker
-  if (typeof(observations) != undefined) {
+  if (observations != undefined) {
     for(var index in observations) {
       /*var infoWindow = new google.maps.InfoWindow({map: map});*/
       var posObs = new google.maps.LatLng(observations[index].lat, observations[index].lng);
+      var infoWindow = new google.maps.InfoWindow({map: map});
 
       /*infoWindow.setPosition(pos);
       infoWindow.setContent('<img src="' + observations[index].img + '" style="width: 200px;">');*/
@@ -397,12 +398,39 @@ function initMap() {
         center: posObs,
         radius: Math.sqrt(observations[index].nbr) * 10000
       });
+
+      /* Map events */
+      google.maps.event.addListener(cityCircle,"mouseover",function(){
+        infoWindow.setMap(map);
+        infoWindow.setPosition(posObs);
+        infoWindow.setContent('<img src="' + observations[index].img + '" style="width: 300px;height: 200px;">');
+      }); 
+
+      google.maps.event.addListener(cityCircle,"mouseout",function(){
+        infoWindow.setMap(null);
+      });
     }
   }
+};
 
-  /* Map events */
+/* Autocomplete filter */
+var liste = [
+    "Auvergne-Rhône-Alpes",
+    "Bourgogne-Franche-Comté",
+    "Bretagne",
+    "Centre-Val de Loire",
+    "Corse",
+    "Grand Est",
+    "Hauts-de-France",
+    "Île-de-France",
+    "Normandie",
+    "Nouvelle-Aquitaine",
+    "Occitanie",
+    "Pays de la Loire",
+    "Provence-Alpes-Côte d'Azur"
+];
 
-
-  
-
-}   
+$('#observation_filter_region').autocomplete({
+    source : liste,
+    minLength: 0
+}).bind('focus', function(){ $(this).autocomplete("search"); } );

@@ -113,7 +113,6 @@ a {
 
 .filter{
 	width: 100%;
-	height: 18%;
 	padding: 16px;
 	background-color: #F1F6E8;
 }
@@ -122,11 +121,19 @@ a {
 	color: #254460;
 	border-color: #254460;
 }
-.filter button {
+.filter button, #filter_open button, #btn_close_filter {
 	background-color: #254460!important;
 	color: #FFF!important;
 	border-radius: 0!important;
 }
+.filter form {
+	padding: 14px 14px 0 14px;
+}
+#filter_open {
+	padding: 14px;
+	background-color: #F1F6E8;
+}
+
 #observations_wrapper{
 	padding-top: 20px;
 }
@@ -201,6 +208,9 @@ a {
 }
 #help_participate {
 	color: white;
+}
+#observation_date_date, #observation_date_time {
+	float: left;
 }
 
 .map-container{
