@@ -7,7 +7,7 @@ security:
     role_hierarchy:
         ROLE_USER :         ROLE_USER                                 #particulier
         ROLE_ADMIN :        [ROLE_USER, ROLE_ADMIN]                   #naturaliste
-        ROLE_SUPER_ADMIN :  [ROLE_USER, ROLE_ADMIN, ROLE_SUPER_ADMIN] #admin
+        ROLE_SUPER_ADMIN :  [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH] #admin
 
     providers:
         fos_userbundle:

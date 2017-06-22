@@ -3,6 +3,7 @@
 namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -22,35 +23,83 @@ class ObservationType extends AbstractType
      */
 	public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-        	->add('imageFile',         VichImageType::class, [
-                'required' => false,
-                'label' => 'Photo',
-                'allow_delete'  => true,
-                'download_link' => true,
-            ])
-            ->add('date',         DateTimeType::class, [
-                'label' => 'Date de l\'observation',
-                'data' => new \DateTime("now"),
-            ])
-            ->add('address',       AddressType::class, [
-            	'required' => false,
-            	'label' => 'Localisation',
-            ])
-            ->add('bird',         EntityType::class, [
-            	'class' => 'AppBundle:Taxref',
-            	'choice_label' => 'nomVer',
-            	'required' => false,
-                'label'       => 'Espèce',
-            ])
-            ->add('nbObserved',         IntegerType::class, [
-                'label'       => 'Nombre',
-            ])
-            ->add('description',           TextareaType::class, [
-                'label'        => 'Description'
-            ])
-            ->add('valider',              SubmitType::class)
-        ;
+        $role = $options['role'];
+        if (in_array('ROLE_ADMIN', $role)) {
+            $builder
+                ->add('imageFile',         VichImageType::class, [
+                    'required' => false,
+                    'label' => 'Photo',
+                    'allow_delete'  => true,
+                    'download_link' => true,
+                ])
+                ->add('date',         DateTimeType::class, [
+                    'label' => 'Date de l\'observation',
+                    'data' => new \DateTime("now"),
+                    'format' => 'dd/MM/yyyy H:m',
+                    'widget' => 'single_text',
+                    'html5' => 'false'
+                ])
+                ->add('address',       AddressType::class, [
+                    'required' => false,
+                    'label' => 'Localisation',
+                ])
+                ->add('bird',         EntityType::class, [
+                    'class' => 'AppBundle:Taxref',
+                    'choice_label' => 'nomVer',
+                    'required' => false,
+                    'label'       => 'Espèce',
+                ])
+                ->add('nbObserved',         IntegerType::class, [
+                    'label'       => 'Nombre',
+                ])
+                ->add('state',        ChoiceType::class, [
+                    'label'       => 'Statut',
+                    'choices'  => [
+                        'Valider' => true,
+                        'Ne pas valider' => false,
+                    ]
+                ])
+                ->add('description',           TextareaType::class, [
+                    'label'        => 'Description'
+                ])
+                ->add('valider',              SubmitType::class)
+            ;
+        }
+        else{
+            $builder
+                ->add('imageFile',         VichImageType::class, [
+                    'required' => false,
+                    'label' => 'Photo',
+                    'allow_delete'  => true,
+                    'download_link' => true,
+                ])
+                ->add('date',         DateTimeType::class, [
+                    'label' => 'Date de l\'observation',
+                    'data' => new \DateTime("now"),
+                    'format' => 'dd/MM/yyyy H:m',
+                    'widget' => 'single_text',
+                    'html5' => 'false'
+                ])
+                ->add('address',       AddressType::class, [
+                    'required' => false,
+                    'label' => 'Localisation',
+                ])
+                ->add('bird',         EntityType::class, [
+                    'class' => 'AppBundle:Taxref',
+                    'choice_label' => 'nomVer',
+                    'required' => false,
+                    'label'       => 'Espèce',
+                ])
+                ->add('nbObserved',         IntegerType::class, [
+                    'label'       => 'Nombre',
+                ])
+                ->add('description',           TextareaType::class, [
+                    'label'        => 'Description'
+                ])
+                ->add('valider',              SubmitType::class)
+            ;
+        }
+
     }
     
     /**
@@ -59,10 +108,9 @@ class ObservationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Observation'
+            'data_class' => 'AppBundle\Entity\Observation',
+            'role' => null
         ));
     }
 
 }
-
-?>

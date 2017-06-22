@@ -13,7 +13,11 @@
                 </center>
             </div>
             <div class="observation_content col-xs-7 col-xs-offset-1  col-md-offset-0 col-md-6 col-lg-7">
-                <p class="bookmark">Ajouter au favoris <i class="fa fa-heart-o"></i></p>
+                {% if observation.state == true %}
+                    {{ render(controller('AppBundle:User:addFavoriteObservation', {id: observation.id})) }}
+                {% else %}
+                    <p class="text-right" style="color: darkred;">Cette observation n'est pas encore valide</p>
+                {% endif %}
                 <h3 class="observation_title visible-md visible-lg">{{ observation.bird.nomVer }}</h3>
                 <p class="observation_meta">Vu le : {{ observation.date | date("d/m/Y") }} à {{observation.date | date("H:i:s")}}<br>Ville : {{ observation.address.city }}</p>
                 <p class="observation_desc hidden-xs">

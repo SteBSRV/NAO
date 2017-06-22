@@ -58,4 +58,46 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 
 		return $qb->getQuery()->getResult();
 	}
+
+	public function getUserObservations($user)
+	{
+		return $this->createQueryBuilder('o')
+			->where("o.user = :user")
+			->setParameter("user", $user)
+			->getQuery()
+			->getResult()
+			;
+	}
+
+	public function getUserFavoriteObservations($id)
+	{
+		return $this->createQueryBuilder('o')
+			->leftJoin('o.userObservation', 'uo')
+			->addSelect('uo')
+			->where('uo.user = :id')
+			->andWhere('uo.favoriteObservation = true')
+			->setParameter('id', $id)
+			->getQuery()
+			->getResult()
+			;
+	}
+
+
+	public function getAllSubmittedObservations()
+	{
+		return $this->createQueryBuilder('o')
+			->where("o.state = false")
+			->getQuery()
+			->getResult()
+			;
+	}
+
+	public function getAllValidObservations()
+	{
+		return $this->createQueryBuilder('o')
+			->where("o.state = true")
+			->getQuery()
+			->getResult()
+			;
+	}
 }
