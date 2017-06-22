@@ -33,9 +33,6 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 			   ->setParameter('dateSince', $dateSince)
 			;
 		}
-		if (!is_null($popularity)) {
-
-		}
 		if (!is_null($nbr)) {
 			$qb->andwhere('o.nbObserved >= :nbr')
 			   ->setParameter('nbr', $nbr)
@@ -55,7 +52,22 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 			   ->setParameter('region', $region)
 			;
 		}
+		if (!is_null($popularity)) {
+			if($popularity) {
+				$qb->leftJoin('o.userObservation', 'uO')
+			   	   ->andwhere('uO.favoriteObservation = :popularity')
+			   	   ->setParameter('popularity', $popularity)
+			   	   ->groupBy('uO.observation')
+			   	   ->orderBy('uO.observation', 'ASC')
+				;
+			} else {
+				$qb->leftJoin('o.userObservation', 'uO')
+				   ->andWhere('o.userObservation IS EMPTY')
+				;
+			}
+		}
+		$qb->andWhere('o.state = 1');
 
-		return $qb->getQuery()->getResult();
+		return $qb->getQuery();
 	}
 }

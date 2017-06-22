@@ -156,3 +156,9 @@ liip_imagine:
             quality: 75
             filters:
                 thumbnail: { size: [600, 400], mode: outbound }
+
+# Knp Paginator Configuration
+knp_paginator:
+    template:
+        pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig
+        sortable: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig

@@ -33,18 +33,57 @@ class AppController extends Controller
     } 
 
     /**
-     * @Route("/observations/page-{page}", name="observations", requirements={"page": "\d+"})
+     * @Route("/observations/", name="observations")
      */
-    public function listAction(Request $request, $page = 1)
+    public function listAction(Request $request)
     {
-        $repository = $this->getDoctrine()->getManager()->getRepository('AppBundle:Observation');
-        $observations = $repository->findAll();
+        $em = $this->getDoctrine()->getManager();
+        $paginator  = $this->get('knp_paginator');
+        $observationFilter = new ObservationFilter();
 
-        return $this->render('AppBundle:Front:list.html.twig', compact('observations'));
+        $dql   = "SELECT o FROM AppBundle:Observation o WHERE o.state = 1";
+        $query = $em->createQuery($dql);
+
+        $observations = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            5/*limit per page*/
+        );
+
+        $form = $this->get('form.factory')->create(ObservationFilterType::class, $observationFilter);
+
+        return $this->render('AppBundle:Front:list.html.twig', ['observations' => $observations,'form' => $form->createView()]);
     }
 
     /**
-     * @Route("/observations/{id}", name="observation")
+     * @Route("/observations_filtre/", name="observations_filter")
+     */
+    public function listFilteredAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('AppBundle:Observation');
+        $observationFilter = new ObservationFilter();
+        $paginator  = $this->get('knp_paginator');
+
+        $form = $this->get('form.factory')->create(ObservationFilterType::class, $observationFilter, [
+            'action' => $this->generateUrl('observations_filter'),
+            'method' => 'GET',]
+        );
+
+        if ($request->isMethod('GET') && $form->handleRequest($request)->isValid()) {
+            $observations = $paginator->paginate(
+                $repository->search($observationFilter->toArray()),
+                $request->query->getInt('page', 1),
+                5/*limit per page*/
+            );
+        }
+        /*var_dump($observations);
+        die();*/
+        return $this->render('AppBundle:Front:list.html.twig', ['observations' => $observations, 'form' => $form->createView()]);
+    }
+
+    /**
+     * @Route("/observation/{id}", name="observation")
      */
     public function showAction(Request $request)
     {
@@ -96,7 +135,7 @@ class AppController extends Controller
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 
-            $observations = $repository->search($observationFilter->toArray());
+            $observations = $repository->search($observationFilter->toArray())->getResult();
 
             return $this->render('AppBundle:Front:map.html.twig', ['observations' => $observations, 'form' => $form->createView()]);
         }
@@ -126,4 +165,11 @@ class AppController extends Controller
         return $this->render('AppBundle:Front:faq.html.twig');
     }
 
+    /**
+     * @Route("/a-propos/", name="about")
+     */
+    public function aboutAction(Request $request)
+    {
+        return $this->render('AppBundle:Front:about.html.twig');
+    }
 }

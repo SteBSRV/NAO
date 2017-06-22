@@ -52,7 +52,6 @@ class ObservationFilterType extends AbstractType
                 'label' => 'Popularité',
                 'placeholder' => 'Popularité',
                 'required' => false,
-                'disabled' => true,
             ])
             ->add('nbObserved',         IntegerType::class, [
                 'label'       => 'Nombre minimum',

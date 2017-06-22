@@ -1,6 +1,6 @@
 @font-face{
 	font-family: "TamarilloJF";
-	src: url("fonts/TamarilloJF.ttf");
+	src: url("../../bundles/app/css/fonts/TamarilloJF.ttf");
 }
 
 /* Global style */
@@ -32,7 +32,7 @@ p {
 	font-size: 15px;
 }
 a {
-	font-size: 15px;
+	font-size: 10px;
 }
 .btn{
 	text-align: center;
@@ -89,17 +89,10 @@ a {
 .category_content h3 {
     color: #55CADB
 }
-.category_desc {
-	padding-left: 20px;
-	padding-right: 20px;
-}
 
 .page_title h2{
 	padding: 40px;
 	font-family: verdana;
-}
-.observe_list .page_title h2 {
-	margin-top: 80px;
 }
 .faq_wrapper{
 	margin: auto 20px;
@@ -128,7 +121,7 @@ a {
 	color: #254460;
 	border-color: #254460;
 }
-.filter button, #filter_open button, #btn_close_filter, #btn_init_filter {
+.filter button, #filter_open button, #btn_close_filter {
 	background-color: #254460!important;
 	color: #FFF!important;
 	border-radius: 0!important;
@@ -139,10 +132,6 @@ a {
 #filter_open {
 	padding: 14px;
 	background-color: #F1F6E8;
-}
-
-.navigation {
-	text-align: center;
 }
 
 #observations_wrapper{
@@ -198,7 +187,7 @@ a {
 }
 
 .participate {
-	background-image: url("../images/bg_participate.jpg");
+	background-image: url("../../bundles/app/images/bg_participate.jpg");
 	background-position: center;
 	background-size: 100% 100%;
 }
@@ -249,7 +238,7 @@ a {
 }
 
 .login {
-	background-image: url("../images/bg_login.jpg");
+	background-image: url("../../bundles/app/images/bg_login.jpg");
 	background-position: center;
 	background-size: 100% 100%;
 	color: #fff;
@@ -273,51 +262,22 @@ a {
 	color: #3b5998;
 }
 
-.register {
-	min-height: 90%;
-}
 .registration {
-	padding: 0!important;
-	height: 100%;
-}
-.registration_aside {
-	padding: 0!important;
+	padding: 40px;
 }
 .blue_text {
 	color: #55cadb;
 }
 #registration_content {
-	border-bottom: 2px solid #4D637A;
+	border: 2px solid #aaa;
 	padding: 20px;
-	min-height: 100%;
-}
-#registration_content input {
-	margin-bottom: 20px;
-}
-.btn_file_register {
-	height: 180px;
-	width: 180px;
-	border-radius: 90px!important;
-    border: 6px solid #a2a4a6!important;
-    padding-top: 40px!important;
-    margin: 60px auto;
-}
-#registration_content .btn {
-	background: none!important;
-	background-color: #FFF!important;
-	border-radius: 0!important;
-	border: 2px solid #000!important;
-	text-align: center;
-	width: 100%;
-}
-.registration_intro {
-	font-weight: bold;
 }
 #registration_promo {
-	background-image: url("../images/bg_login.jpg");
+	background-image: url("../../bundles/app/images/bg_login.jpg");
 	background-position: center;
 	height: 500px;
 	color: #fff;
+	border: 2px solid #aaa;
 	padding: 40px;
 }
 #registration_promo h2 {
@@ -351,23 +311,10 @@ a {
 	margin-bottom: 60px;
 }
 
-.about h3 {
-	padding-bottom: 30px;
-	padding-top: 20px;
-}
-.about p {
-	margin-bottom: 40px;
-}
-
 #footer-wrapper {
     height: 60px;
     margin-left: -15px;
     margin-right: -15px;
-}
-#footer-wrapper a, #footer-wrapper span {
-    color: #555555;
-    font-size: 14px;
-    font-family: verdana;
 }
 /* End main style */
 
@@ -377,10 +324,6 @@ a {
 		width: 200px;
 		height: 200px;
 		border-radius: 100px;
-	}
-	.category_desc {
-		padding-left: 40px;
-		padding-right: 40px;
 	}
 }	
 /* End responsifve tablet */
@@ -396,17 +339,6 @@ a {
 	#footer-wrapper {
 		height: 100px;
 	}
-	.category_desc {
-		padding-left: 60px;
-		padding-right: 60px;
-	}
-	.observe_list .page_title h2 {
-		margin-top: 220px;
-	}
-	#registration_content {
-		height: 910px;
-		border-left: 2px solid #4D637A;
-		border-bottom: none;
-	}
+
 }
 /* End responsive desktop */

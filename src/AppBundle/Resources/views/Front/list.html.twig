@@ -1,11 +1,59 @@
 {% extends "layout/layout.html.twig" %}
 
 {% block body %}
-<div class="row">
-	<div class="filter">
-        <form>
+<div class="row observe_list">
+	<div id="form_filter_container" class="filter col-xs-12 hidden-xs hidden-sm">
+        {{ form_start(form, {'action': path('observations_filter'), 'method': 'GET'}) }}
+            {{ form_errors(form) }}
 
-        </form>
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="form-group col-md-11 col-md-offset-1">
+                        {{ form_errors(form.bird) }}
+                        {{ form_widget(form.bird, {'attr':{'class': 'form-control'}}) }}
+                    </div>
+                    <div class="form-group col-md-5 col-md-offset-7">
+                        {{ form_errors(form.region) }}
+                        {{ form_widget(form.region, {'attr':{'class': 'form-control', 'placeholder': 'Region'}}) }}
+                    </div>
+                    <div class="form-group col-md-5 col-md-offset-7">
+                        {{ form_errors(form.popularity) }}
+                        {{ form_widget(form.popularity, {'attr':{'class': 'form-control'}}) }}
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group col-md-11">
+                        {{ form_errors(form.dateSince) }}
+                        {{ form_widget(form.dateSince, {'attr':{'class': 'form-control'}}) }}
+                    </div>
+                    <div class="form-group col-md-11">
+                        {{ form_errors(form.city) }}
+                        {{ form_widget(form.city, {'attr':{'class': 'form-control', 'placeholder': 'Ville'}}) }}
+                    </div>
+                    <div class="form-group col-md-11">
+                        {{ form_errors(form.nbObserved) }}
+                        {{ form_widget(form.nbObserved, {'attr':{'class': 'form-control', 'placeholder': 'Nombre minimum'}}) }}
+                    </div>
+                </div>
+
+                <div class="form-group col-md-2 col-xs-12">
+                    {{ form_widget(form.valider, {'attr':{'class': 'btn btn-info col-md-9 col-xs-10 col-xs-offset-1'}}) }}
+                </div>
+
+                <div class="form-group col-md-2 col-xs-12">
+                    <a href="{{ path('observations') }}" alt="Réinitialiser le filtre"><span id="btn_init_filter" class="btn btn-info col-md-9 col-xs-10 col-xs-offset-1">Réinitialiser <i class="fa fa-undo"></i></span></a>
+                </div>
+
+                <div class="form-group col-xs-12 visible-xs visible-sm">
+                    <span id="btn_close_filter" class="btn btn-info col-xs-10 col-xs-offset-1">Fermer <i class="fa fa-times"></i></span>
+                </div>
+            </div>
+
+        {{ form_end(form) }}
+    </div>
+    <div id="filter_open" class="col-xs-12 visible-xs visible-sm">
+        <button id="btn_open_filter" class="btn btn-info col-xs-10 col-xs-offset-1">Filtre <i class="fa fa-search"></i></button>
     </div>
     <div class="page_title">
         <center><h2>Observations</h2></center>
@@ -39,6 +87,9 @@
                 </div>
             </div>
         {% endfor %}
+        <div class="navigation">
+            {{ knp_pagination_render(observations) }}
+        </div>
     </div>
 </div>
 {% endblock %}

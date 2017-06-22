@@ -41,6 +41,10 @@
                     {{ form_widget(form.valider, {'attr':{'class': 'btn btn-info col-md-9 col-xs-10 col-xs-offset-1'}}) }}
                 </div>
 
+                <div class="form-group col-md-2 col-xs-12">
+                    <a href="{{ path('map') }}" alt="Réinitialiser le filtre"><span id="btn_init_filter" class="btn btn-info col-md-9 col-xs-10 col-xs-offset-1">Réinitialiser <i class="fa fa-undo"></i></span></a>
+                </div>
+
                 <div class="form-group col-xs-12 visible-xs visible-sm">
                     <span id="btn_close_filter" class="btn btn-info col-xs-10 col-xs-offset-1">Fermer <i class="fa fa-times"></i></span>
                 </div>
