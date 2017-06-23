@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Observartion
@@ -27,14 +28,17 @@ class Observation
     /**
      * @var DateTime
      *
-     * @ORM\Column(name="datetime", type="datetime")
+     * @ORM\Column(name="observe_at", type="datetime")
+     * @Assert\DateTime()
+     * @Assert\LessThanOrEqual("today +1 day", message="Vous ne pouvez pas poster une observation qui n'a pas encore eu lieu...")
      */
-    protected $date;
+    protected $observeAt;
     
     /**
      * @var text
      *
      * @ORM\Column(name="description", type="text")
+     * @Assert\NotBlank()
      */
     protected $description;
 
@@ -42,6 +46,7 @@ class Observation
      * @var int
      *
      * @ORM\Column(name="nb_observe", type="integer")
+     * @Assert\GreaterThanOrEqual(1)
      */
     protected $nbObserved;
 
@@ -50,6 +55,7 @@ class Observation
      *
      * @ORM\OneToOne(targetEntity="Address", cascade={"all", "remove"})
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(message="Veuillez saisir une adresse valide.")
      */
     protected $address;
 
@@ -65,7 +71,8 @@ class Observation
      * @var object
      *
      * @ORM\ManyToOne(targetEntity="Taxref")
-     * @ORM\JoinColumn(name="bird", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="bird", referencedColumnName="id", nullable=false)
+     * @Assert\NotNull()
      */
     protected $bird;
 
@@ -80,6 +87,7 @@ class Observation
      * @var File
      *
      * @Vich\UploadableField(mapping="observations_images", fileNameProperty="image", nullable=true)
+     * @Assert\File(maxSize = "10M")
      */
     private $imageFile;
 
@@ -98,7 +106,7 @@ class Observation
 
     public function __construct()
     {
-        
+        $this->observeAt = new \DateTime();    
     }
 
     /**
@@ -112,27 +120,27 @@ class Observation
     }
 
     /**
-     * Set date
+     * Set observeAt
      *
-     * @param \DateTime $date
+     * @param \DateTime $observeAt
      *
      * @return Observation
      */
-    public function setDate(\DateTime $date)
+    public function setObserveAt($observeAt)
     {
-        $this->date = $date;
+        $this->observeAt = $observeAt;
 
         return $this;
     }
 
     /**
-     * Get date
+     * Get observeAt
      *
      * @return \DateTime
      */
-    public function getDate()
+    public function getObserveAt()
     {
-        return $this->date;
+        return $this->observeAt;
     }
 
     /**
@@ -290,9 +298,9 @@ class Observation
     {
         $this->imageFile = $image;
 
-        if($image) {
-            $this->date = new \DateTime("now");
-        }
+        /*if($image) {
+            $this->observeAt = new \DateTime("now");
+        }*/
 
         return $this;
     }

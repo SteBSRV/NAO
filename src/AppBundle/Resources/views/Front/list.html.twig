@@ -59,7 +59,7 @@
         <center><h2>Observations</h2></center>
     </div>
     <div id="observations_wrapper" class="col-xs-12">
-        {% for observation in observations %}
+        {% for observation in pagination %}
             <div class="observation col-xs-12">
                 <div class="col-xs-4 col-md-3">
                     <center>
@@ -70,7 +70,7 @@
                     <div class="observation_content col-xs-7 col-xs-offset-1  col-md-offset-0 col-md-6 col-lg-7">
                         {{ render(controller('AppBundle:User:addFavoriteObservation', {id: observation.id})) }}
                         <h3 class="observation_title">{{ observation.bird.nomVer }}</h3>
-                        <p class="observation_meta">Vu le : {{ observation.getDate() | date("d/m/Y") }} à {{observation.date | date("H:i:s")}}<br>Ville : {{ observation.address.city }}</p>
+                        <p class="observation_meta">Vu le : {{ observation.observeAt | date("d/m/Y") }} à {{observation.observeAt | date("H:i:s")}}<br>Ville : {{ observation.address.city }}</p>
                         <p class="observation_desc hidden-xs">
                             {{observation.description}}
                         </p>
@@ -88,7 +88,7 @@
             </div>
         {% endfor %}
         <div class="navigation">
-            {{ knp_pagination_render(observations) }}
+            {{ knp_pagination_render(pagination) }}
         </div>
     </div>
 </div>

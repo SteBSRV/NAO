@@ -20,7 +20,7 @@
                 {% endif %}
 
                 <h3 class="observation_title visible-md visible-lg">{{ observation.bird.nomVer }}</h3>
-                <p class="observation_meta">Vu le : {{ observation.date | date("d/m/Y") }} à {{observation.date | date("H:i:s")}}<br>Ville : {{ observation.address.city }}</p>
+                <p class="observation_meta">Vu le : {{ observation.observeAt | date("d/m/Y") }} à {{observation.observeAt | date("H:i:s")}}<br>Ville : {{ observation.address.city }}</p>
                 <p class="observation_desc hidden-xs">
                     {{observation.description}}
                 </p>

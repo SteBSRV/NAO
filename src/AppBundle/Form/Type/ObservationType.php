@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use AppBundle\Form\Type\AddressType;
+use AppBundle\Repository\TaxrefRepository;
 
 class ObservationType extends AbstractType
 {
@@ -32,7 +33,7 @@ class ObservationType extends AbstractType
                     'allow_delete'  => true,
                     'download_link' => true,
                 ])
-                ->add('date',         DateTimeType::class, [
+                ->add('observeAt',         DateTimeType::class, [
                     'label' => 'Date de l\'observation',
                     'data' => new \DateTime("now"),
                     'format' => 'dd/MM/yyyy H:m',
@@ -45,7 +46,9 @@ class ObservationType extends AbstractType
                 ])
                 ->add('bird',         EntityType::class, [
                     'class' => 'AppBundle:Taxref',
-                    'choice_label' => 'nomVer',
+                    'query_builder' => function(TaxrefRepository $trr) {
+                        return $trr->getAllNomVer();
+                    },
                     'required' => false,
                     'label'       => 'Espèce',
                 ])

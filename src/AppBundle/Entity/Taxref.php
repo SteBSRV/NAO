@@ -61,6 +61,10 @@ class Taxref
 
     }
 
+    public function __toString()
+    {
+        return $this->getNomVer();
+    }
 
     /**
      * Get id

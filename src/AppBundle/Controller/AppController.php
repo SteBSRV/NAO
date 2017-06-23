@@ -5,8 +5,10 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Observation;
 use AppBundle\Entity\NewsLetter;
+use AppBundle\Form\Type\NewsLetterType;
 use AppBundle\Form\Type\ObservationType;
 use AppBundle\Entity\ObservationFilter;
 use AppBundle\Form\Type\ObservationFilterType;
@@ -39,21 +41,22 @@ class AppController extends Controller
     public function listAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('AppBundle:Observation');
         $paginator  = $this->get('knp_paginator');
         $observationFilter = new ObservationFilter();
 
-        $dql   = "SELECT o FROM AppBundle:Observation o WHERE o.state = 1";
-        $query = $em->createQuery($dql);
+        $query = $repo->getAllValidObservations();
 
-        $observations = $paginator->paginate(
+        $pagination = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1),
-            5/*limit per page*/
+            5,/*limit per page*/
+            ['wrap-queries' => true]
         );
 
         $form = $this->get('form.factory')->create(ObservationFilterType::class, $observationFilter);
 
-        return $this->render('AppBundle:Front:list.html.twig', ['observations' => $observations,'form' => $form->createView()]);
+        return $this->render('AppBundle:Front:list.html.twig', ['pagination' => $pagination,'form' => $form->createView()]);
     }
 
     /**
@@ -72,15 +75,15 @@ class AppController extends Controller
         );
 
         if ($request->isMethod('GET') && $form->handleRequest($request)->isValid()) {
-            $observations = $paginator->paginate(
+            $pagination = $paginator->paginate(
                 $repository->search($observationFilter->toArray()),
                 $request->query->getInt('page', 1),
-                5/*limit per page*/
+                5,/*limit per page*/
+                ['wrap-queries' => true]
             );
         }
-        /*var_dump($observations);
-        die();*/
-        return $this->render('AppBundle:Front:list.html.twig', ['observations' => $observations, 'form' => $form->createView()]);
+
+        return $this->render('AppBundle:Front:list.html.twig', ['pagination' => $pagination, 'form' => $form->createView()]);
     }
 
     /**
@@ -184,36 +187,35 @@ class AppController extends Controller
     }
 
     /**
-     * @Route("/admin/", name="admin")
-     */
-    public function adminAction(Request $request)
-    {
-        if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED') == false) {
-            return $this->redirectToRoute('homepage');
-        }
-        return $this->render('AppBundle:Front:admin.html.twig');
-    }
-
-    /**
      * @Route("/inscription_newsletter/", name="register_newsletter")
      */
     public function registerNewsAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository();
-
         $newsLetter = new NewsLetter(
             $request->query->get('name'),
             $request->query->get('email')
         );
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('AppBundle:NewsLetter');
 
-        if ($repo->findOneByMail($newsLetter->getMail())) {
-            $request->getSession()->getFlashBag()->add('warning','Vous êtes déjà inscrit à la newsletter.');
+        $form = $this->get('form.factory')->create(NewsLetterType::class, $newsLetter, [
+            'action' => $this->generateUrl('register_newsletter'),
+            'method' => 'GET',]
+        );
+
+        if ($request->isMethod('GET') && $form->handleRequest($request)->isValid()) {
+            if ($repo->findOneByMail($newsLetter->getMail())) {
+                $request->getSession()->getFlashBag()->add('warning','Vous êtes déjà inscrit à la newsletter.');
+
+                return new Response('Vous êtes déjà inscrit à la newsletter.');
+            } else {
+                $em->persist($newsLetter);
+                $em->flush();
+                $request->getSession()->getFlashBag()->add('info','Inscription à la newsletter bien effectuée.');
+                return new Response('Inscription à la newsletter bien effectuée.');
+            }
         } else {
-            $em->persist($newsLetter);
-            $em->flush();
-
-            $request->getSession()->getFlashBag()->add('info','Inscription à la newsletter bien effectuée.');
+            return $this->render('AppBundle:Front:newsletter.html.twig', ['form' => $form->createView()]);
         }
     }
 }

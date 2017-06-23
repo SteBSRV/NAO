@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use AppBundle\Repository\TaxrefRepository;
 
 class ObservationFilterType extends AbstractType
 {
@@ -21,7 +22,9 @@ class ObservationFilterType extends AbstractType
         $builder
             ->add('bird',         EntityType::class, [
                 'class' => 'AppBundle:Taxref',
-                'choice_label' => 'nomVer',
+                'query_builder' => function(TaxrefRepository $trr) {
+                        return $trr->getAllNomVer();
+                },
                 'required' => true,
                 'label'       => 'Espèce',
             ])

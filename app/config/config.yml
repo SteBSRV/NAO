@@ -159,6 +159,8 @@ liip_imagine:
 
 # Knp Paginator Configuration
 knp_paginator:
+    default_options:
+        distinct: true
     template:
         pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig
         sortable: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig

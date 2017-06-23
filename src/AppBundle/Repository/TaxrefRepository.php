@@ -18,4 +18,15 @@ class TaxrefRepository extends \Doctrine\ORM\EntityRepository
             )
             ->getResult();
     }
+
+    public function getAllNomVer()
+    {
+        $qb = $this
+			->createQueryBuilder('t')
+			->select('t')
+			->where('t.nomVer IS NOT NULL')
+			->orderBy('t.nomVer', 'ASC')
+		;
+		return $qb;
+    }
 }

@@ -8,6 +8,14 @@ namespace AppBundle\Repository;
  */
 class ObservationRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function countValid() {
+		return $this->createQueryBuilder('o')
+			->select('count(o)')
+			->where('o.state = 1')
+			->getQuery()
+			->getSingleScalarResult()
+		;
+	}
 	public function search($observationFilter)
 	{
 		$bird = $observationFilter['bird'];
@@ -29,7 +37,7 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 		;
 
 		if (isset($dateSince)) {
-			$qb->andwhere('o.date >= :dateSince')
+			$qb->andwhere('o.observeAt >= :dateSince')
 			   ->setParameter('dateSince', $dateSince)
 			;
 		}
@@ -58,11 +66,11 @@ class ObservationRepository extends \Doctrine\ORM\EntityRepository
 			   	   ->andwhere('uO.favoriteObservation = :popularity')
 			   	   ->setParameter('popularity', $popularity)
 			   	   ->groupBy('uO.observation')
-			   	   ->orderBy('uO.observation', 'ASC')
+			   	   ->orderBy('uO.favoriteObservation')
 				;
 			} else {
-				$qb->leftJoin('o.userObservation', 'uO')
-				   ->andWhere('o.userObservation IS EMPTY')
+				/*$qb->leftJoin('o.userObservation', 'uO')
+				   ->andWhere('o.userObservation IS EMPTY')*/
 				;
 			}
 		}

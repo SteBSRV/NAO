@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <title>{% block title %}Nos amis les oiseaux{% endblock %}</title>
     <link rel="icon" href="../../favicon.ico">
-    {% stylesheets '@AppBundle/Resources/public/css/start/startpage.css' filter='cssrewrite' %}
+    {% stylesheets '@AppBundle/Resources/public/css/front/start/startpage.css' filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" /> 
     {% endstylesheets %}
     <!-- Bootstrap core CSS -->
@@ -21,9 +21,14 @@
 
     <div id="wrapper" class="fullscreen">
     	<div id="first_page" class="fullscreen" style="">
-            <div class="col-md-12">
+            <div class="col-md-12 hidden-xs hidden-sm">
                 {% image '@AppBundle/Resources/public/images/nao_full_logo.png' %}
                     <img id="header_img" src="{{ asset_url }}" alt="Nos amis les oiseaux">
+                {% endimage %}
+            </div>
+            <div class="col-xs-12 hidden-md hidden-lg">
+                {% image '@AppBundle/Resources/public/images/nao_icon.png' %}
+                    <img id="header_img_sm" src="{{ asset_url }}" alt="Nos amis les oiseaux">
                 {% endimage %}
             </div>
             <div class="start_content col-md-6 col-md-offset-3">
@@ -36,7 +41,7 @@
             <button id="start_button" class="btn btn-primary center-block">Commencer</button>
     	</div>
         <div id="second_page" class="fullscreen" style="display: none;">
-            <div class="border_content col-md-2 col-md-offset-2">
+            <div id="startpage1" class="border_content col-xs-12 col-md-2 col-lg-offset-2">
                 {% image '@AppBundle/Resources/public/images/start_carte.png' %}
                     <img class="start_img center-block" src="{{ asset_url }}" alt="Nos amis les oiseaux">
                 {% endimage %}
@@ -45,7 +50,7 @@
                     Où que vous soyez en France, vous pouvez collaborer
                 </p>
             </div>
-            <div class="border_content col-md-2 col-md-offset-1">
+            <div id="startpage2" class="border_content col-xs-12 col-md-2 col-md-offset-1 hidden-xs hidden-sm">
                 {% image '@AppBundle/Resources/public/images/start_observe.png' %}
                     <img class="start_img center-block" src="{{ asset_url }}" alt="Nos amis les oiseaux">
                 {% endimage %}
@@ -54,7 +59,7 @@
                     Arrêtez vous pour observer et photographier les espèces rencontrées
                 </p>
             </div>
-            <div class="border_content col-md-2 col-md-offset-1">
+            <div id="startpage3" class="border_content col-xs-12 col-md-2 col-md-offset-1 hidden-xs hidden-sm">
                 {% image '@AppBundle/Resources/public/images/start_particip.png' %}
                     <img class="start_img center-block" src="{{ asset_url }}" alt="Nos amis les oiseaux">
                 {% endimage %}
@@ -62,14 +67,15 @@
                 <p class="text-center">
                     Partagez vos infos directement via votre smartphone ou simplement sur votre ordinateur en rentrant à la maison
                 </p>
+                <a class="visible-xs visible-sm" href="{{ path('homepage') }}"><button class="btn btn-default center-block">C'est partie</button></a>
             </div>
-            <a href="{{ path('homepage') }}"><button class="btn btn-default center-block">C'est partie</button></a>
+            <a class="hidden-xs hidden-sm" href="{{ path('homepage') }}"><button class="btn btn-default center-block">C'est partie</button></a>
         </div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    {% block javascripts %} {% javascripts '@AppBundle/Resources/public/js/*' %}
+    {% block javascripts %} {% javascripts '@AppBundle/Resources/public/js/front/*' %}
         <script src="{{ asset_url }}"></script>
     {% endjavascripts %} {% endblock %}
 

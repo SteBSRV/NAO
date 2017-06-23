@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <title>{% block title %}Nos amis les oiseaux{% endblock %}</title>
     <link rel="icon" href="../../favicon.ico">
-    {% stylesheets 'bundles/app/css/*' filter='cssrewrite' %}
+    {% stylesheets 'bundles/app/css/front/*' filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" /> 
     {% endstylesheets %}
     <!-- Bootstrap core CSS -->
@@ -139,6 +139,11 @@
                                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                                             <li><a href="{{ path('fos_user_profile_show') }}">Mon compte</a></li>
                                             <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
+                                            {% if is_granted("ROLE_SUPER_ADMIN") %}
+                                                <li>
+                                                    <a href="{{ path('admin_home') }}">Tableau de bord</a>
+                                                </li>
+                                            {% endif %}
                                         {% else %}
                                             <li><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
                                             <li><a href="{{ path('fos_user_registration_register') }}">Inscription</a></li>
@@ -154,11 +159,11 @@
                                             <span>75006 PARIS</span>
                                         </li>
                                         <li>
-                                            <i class="fa fa-phone"></i> <a href="tel:0148356221" alt="Numéro de téléphone fixe">01 48 35 62 21</a><br>
-                                            <i class="fa fa-phone"></i> <a href="tel:0624533221" alt="Numéro de téléphone fixe">06 24 52 32 21</a>
+                                            <a href="tel:0148356221" alt="Numéro de téléphone fixe"><i class="fa fa-phone"></i> 01 48 35 62 21</a><br>
+                                            <a href="tel:0624533221" alt="Numéro de téléphone fixe"><i class="fa fa-phone"></i> 06 24 52 32 21</a>
                                         </li>
                                         <li>
-                                            <i class="fa fa-envelope"></i> <a href="mailto:contact@nao.org" alt="Contactez-nous">contact@nao.org</a>
+                                            <a href="mailto:contact@nao.org" alt="Contactez-nous"><i class="fa fa-envelope"></i> contact@nao.org</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -167,24 +172,21 @@
                                     <p class="text-center">
                                         Inscrivez-vous pour recevoir l'actualité de NAO
                                     </p>
-                                    <form action="{{ path('register_newsletter') }}" method="POST">
-                                        <div class="form-inline">
-                                            <div class="input-group col-xs-12 mb-2 mr-sm-2 mb-sm-0">
-                                                <input type="text" name="name" class="form-control" id="newsletter_name" placeholder="Prénom">
-                                                <input type="email" name="email" class="form-control" id="newsletter_mail" placeholder="Adresse email">
-                                                <div class="input-group-addon">OK</div>
-                                            </div>
-                                            <button type="submit" id="newsLet_submit" class="col-xs-2" style="display:none;"></button>
+                                    <div class="col-xs-12  col-sm-10 col-sm-offset-1 col-lg-8 col-lg-offset-2">
+                                        {{ render(controller('AppBundle:App:registerNews')) }}
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <br>
+                                        <p class="text-center">
+                                            Suivez-nous et partagez sur
+                                        </p>
+                                        <div class="text-center">
+                                            <a href="#" alt="Page Facebook"><i class="fa fa-facebook-official fa-4x" aria-hidden="true"></i></a>
                                         </div>
-                                    </form>
-                                    <br>
-                                    <p class="text-center">
-                                        Suivez-nous et partagez sur
-                                    </p>
-                                    <div class="text-center">
-                                        <a href="#" alt="Page Facebook"><i class="fa fa-facebook-official fa-4x" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
+                                <hr>
+                                <p class="text-center">Copyright N.A.O. © 2017</p>
                             </div>
                         </div>
                     </div>
@@ -193,15 +195,34 @@
         </div>
         <!-- /#page-content-wrapper -->
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="newsletter_modal" tabindex="-1" role="dialog" aria-labelledby="newsletter_modal_label">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="text-center">NEWSLETTER</h3>
+                <p class="text-center">
+                    Ne manquez rien!<br>Avancé du projet, Jeux concours, vous saurez tout !
+                </p>
+                {{ render(controller('AppBundle:App:registerNews')) }}
+                <p class="text-center small">
+                    En cliquant sur ce bouton,<br> vous acceptez nos <a class="small" href="#">Conditions d'utilisation</a>.
+                </p>
+            </div>
+        </div>
+        </div>
+    </div>
+
     <!-- Bootstrap core JavaScript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-
+    
     {% block javascripts %}
-        {% javascripts  '@AppBundle/Resources/public/js/moment-with-locales.min.js'
-        '@AppBundle/Resources/public/js/bootstrap-datetimepicker.min.js'
-        '@AppBundle/Resources/public/js/*'
+        {% javascripts  '@AppBundle/Resources/public/js/front/moment-with-locales.min.js'
+        '@AppBundle/Resources/public/js/front/bootstrap-datetimepicker.min.js'
+        '@AppBundle/Resources/public/js/front/*'
         %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}

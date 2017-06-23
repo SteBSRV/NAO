@@ -10,4 +10,11 @@ namespace AppBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function countAll() {
+		return $this->createQueryBuilder('u')
+			->select('count(u)')
+			->getQuery()
+			->getSingleScalarResult()
+		;
+	}
 }

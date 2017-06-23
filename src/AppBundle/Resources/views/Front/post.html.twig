@@ -2,11 +2,11 @@
 
 {% block body %}
 <div class="row participate">
-	<div id="participate_form" class="col-md-8 col-md-offset-2">
+	<div id="participate_form" class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
 		{{ form_start(form) }}
 		    {{ form_errors(form) }}
 
-			<div class="col-md-4">
+			<div class="col-xs-12 col-lg-4">
 			    <div class="form-group">
 				        {{ form_errors(form.imageFile) }}
 				    <label class="btn btn-default btn-file">
@@ -15,13 +15,13 @@
 			    </div>
 			</div>
 
-			<div class="col-md-8">
+			<div class="col-xs-12 col-lg-8">
 				<div class="form-group col-md-12">
 			    	<a id="help_participate" src="#">Aide ?</a>
 			    </div>
 			    <div class="form-group col-md-12">
-			        {{ form_errors(form.date) }}
-			        {{ form_widget(form.date, {'id': 'datetimepicker', 'attr':{'class': 'form-control', 'placeholder': 'date'}}) }}
+			        {{ form_errors(form.observeAt) }}
+			        {{ form_widget(form.observeAt, {'id': 'datetimepicker', 'attr':{'class': 'form-control', 'placeholder': 'date'}}) }}
 			    </div>
 
 			    <div class="form-group col-md-7">
@@ -88,7 +88,7 @@
 </div>
 
 
-{% javascripts '@AppBundle/Resources/public/js/map/geocode.js' %}
+{% javascripts '@AppBundle/Resources/public/js/front/map/geocode.js' %}
 	<script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGfq5n1vQSGUbBjqfEPaKBXMp81UcrvOU&callback=initialize" async defer></script>

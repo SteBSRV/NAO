@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Address
@@ -25,6 +26,7 @@ class Address
      * @var string
      *
      * @ORM\Column(name="adresse", type="string", length=255)
+     * @Assert\NotBlank()
      */
     protected $address;
 
@@ -32,6 +34,12 @@ class Address
      * @var int
      *
      * @ORM\Column(name="code_postal", type="integer")
+     * @Assert\Range(
+     *      min = 01000,
+     *      max = 99999,
+     *      minMessage = "Code postal incorect (respecter le format XXXXX).",
+     *      maxMessage = "Code postal incorect (respecter le format XXXXX)."
+     * )
      */
     protected $postalCode;
 
@@ -39,6 +47,7 @@ class Address
      * @var string
      *
      * @ORM\Column(name="ville", type="string", length=255)
+     * @Assert\NotBlank()
      */
     protected $city;
 
