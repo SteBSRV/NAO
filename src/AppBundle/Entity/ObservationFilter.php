@@ -1,9 +1,8 @@
 <?php
 
-use AppBundle\Entity\Taxref;
-
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Taxref;
 class ObservationFilter
 {
     /**

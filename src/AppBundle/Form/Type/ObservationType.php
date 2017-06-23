@@ -24,7 +24,7 @@ class ObservationType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $role = $options['role'];
-        if (in_array('ROLE_ADMIN', $role)) {
+        if (in_array('ROLE_ADMIN', $role) || in_array('ROLE_SUPER_ADMIN', $role)) {
             $builder
                 ->add('imageFile',         VichImageType::class, [
                     'required' => false,
