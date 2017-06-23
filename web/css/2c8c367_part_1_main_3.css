@@ -1,6 +1,6 @@
 @font-face{
 	font-family: "TamarilloJF";
-	src: url("../../Resources/public/css/fonts/TamarilloJF.ttf");
+	src: url("../../bundles/app/css/fonts/TamarilloJF.ttf");
 }
 
 /* Global style */
@@ -32,7 +32,7 @@ p {
 	font-size: 15px;
 }
 a {
-	font-size: 10px;
+	font-size: 15px;
 }
 .btn{
 	text-align: center;
@@ -89,10 +89,17 @@ a {
 .category_content h3 {
     color: #55CADB
 }
+.category_desc {
+	padding-left: 20px;
+	padding-right: 20px;
+}
 
 .page_title h2{
 	padding: 40px;
 	font-family: verdana;
+}
+.observe_list .page_title h2 {
+	margin-top: 80px;
 }
 .faq_wrapper{
 	margin: auto 20px;
@@ -113,7 +120,6 @@ a {
 
 .filter{
 	width: 100%;
-	height: 18%;
 	padding: 16px;
 	background-color: #F1F6E8;
 }
@@ -122,11 +128,23 @@ a {
 	color: #254460;
 	border-color: #254460;
 }
-.filter button {
+.filter button, #filter_open button, #btn_close_filter, #btn_init_filter {
 	background-color: #254460!important;
 	color: #FFF!important;
 	border-radius: 0!important;
 }
+.filter form {
+	padding: 14px 14px 0 14px;
+}
+#filter_open {
+	padding: 14px;
+	background-color: #F1F6E8;
+}
+
+.navigation {
+	text-align: center;
+}
+
 #observations_wrapper{
 	padding-top: 20px;
 }
@@ -180,7 +198,7 @@ a {
 }
 
 .participate {
-	background-image: url("../../Resources/public/images/bg_participate.jpg");
+	background-image: url("../../bundles/app/images/bg_participate.jpg");
 	background-position: center;
 	background-size: 100% 100%;
 }
@@ -201,6 +219,9 @@ a {
 }
 #help_participate {
 	color: white;
+}
+#observation_date_date, #observation_date_time {
+	float: left;
 }
 
 .map-container{
@@ -228,7 +249,7 @@ a {
 }
 
 .login {
-	background-image: url("../../Resources/public/images/bg_login.jpg");
+	background-image: url("../../bundles/app/images/bg_login.jpg");
 	background-position: center;
 	background-size: 100% 100%;
 	color: #fff;
@@ -238,6 +259,19 @@ a {
     border: 2px solid #55cadb;
     border-radius: 40px;
     padding: 50px;
+}
+.link{
+	font-size: 15px;
+	text-align: left;
+	color: black;
+	background: none;
+	margin: 0;
+	padding: 0;
+	border: none;
+	cursor: pointer;
+}
+.color-alizarin{
+	background-color: #e74c3c;
 }
 #username, #password {
 	border: none;
@@ -252,22 +286,51 @@ a {
 	color: #3b5998;
 }
 
+.register {
+	min-height: 90%;
+}
 .registration {
-	padding: 40px;
+	padding: 0!important;
+	height: 100%;
+}
+.registration_aside {
+	padding: 0!important;
 }
 .blue_text {
 	color: #55cadb;
 }
 #registration_content {
-	border: 2px solid #aaa;
+	border-bottom: 2px solid #4D637A;
 	padding: 20px;
+	min-height: 100%;
+}
+#registration_content input {
+	margin-bottom: 20px;
+}
+.btn_file_register {
+	height: 180px;
+	width: 180px;
+	border-radius: 90px!important;
+    border: 6px solid #a2a4a6!important;
+    padding-top: 40px!important;
+    margin: 60px auto;
+}
+#registration_content .btn {
+	background: none!important;
+	background-color: #FFF!important;
+	border-radius: 0!important;
+	border: 2px solid #000!important;
+	text-align: center;
+	width: 100%;
+}
+.registration_intro {
+	font-weight: bold;
 }
 #registration_promo {
-	background-image: url("../../Resources/public/images/bg_login.jpg");
+	background-image: url("../../bundles/app/images/bg_login.jpg");
 	background-position: center;
 	height: 500px;
 	color: #fff;
-	border: 2px solid #aaa;
 	padding: 40px;
 }
 #registration_promo h2 {
@@ -301,10 +364,38 @@ a {
 	margin-bottom: 60px;
 }
 
+.about h3 {
+	padding-bottom: 30px;
+	padding-top: 20px;
+}
+.about p {
+	margin-bottom: 40px;
+}
+
 #footer-wrapper {
-    height: 60px;
     margin-left: -15px;
     margin-right: -15px;
+}
+#footer-wrapper a  {
+	color: #555555;
+}
+#footer-wrapper span {
+	font-size: 15px;
+	color: #555555;
+}
+} 
+#footer-wrapper ul {
+    list-style: none;
+}
+#footer-wrapper li {
+    margin-bottom: 10px;
+    list-style: none;
+}
+#footer-wrapper h3 {
+	margin-bottom: 40px;
+}
+#footer-wrapper .fa:hover, #footer-wrapper a:hover {
+	color: #317EAC;
 }
 /* End main style */
 
@@ -314,6 +405,10 @@ a {
 		width: 200px;
 		height: 200px;
 		border-radius: 100px;
+	}
+	.category_desc {
+		padding-left: 40px;
+		padding-right: 40px;
 	}
 }	
 /* End responsifve tablet */
@@ -327,8 +422,19 @@ a {
     margin-top: 60px;
 	}
 	#footer-wrapper {
-		height: 100px;
+		
 	}
-
+	.category_desc {
+		padding-left: 60px;
+		padding-right: 60px;
+	}
+	.observe_list .page_title h2 {
+		margin-top: 220px;
+	}
+	#registration_content {
+		height: 910px;
+		border-left: 2px solid #4D637A;
+		border-bottom: none;
+	}
 }
 /* End responsive desktop */
