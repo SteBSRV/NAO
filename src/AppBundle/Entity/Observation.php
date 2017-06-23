@@ -118,7 +118,7 @@ class Observation
      *
      * @return Observation
      */
-    public function setDate($date)
+    public function setDate(\DateTime $date)
     {
         $this->date = $date;
 

@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Observation;
+use AppBundle\Entity\NewsLetter;
 use AppBundle\Form\Type\ObservationType;
 use AppBundle\Entity\ObservationFilter;
 use AppBundle\Form\Type\ObservationFilterType;
@@ -170,6 +171,41 @@ class AppController extends Controller
      */
     public function aboutAction(Request $request)
     {
+        
         return $this->render('AppBundle:Front:about.html.twig');
+    }
+
+    /**
+     * @Route("/admin/", name="admin")
+     */
+    public function adminAction(Request $request)
+    {
+        if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED') == false) {
+            return $this->redirectToRoute('homepage');
+        }
+        return $this->render('AppBundle:Front:admin.html.twig');
+    }
+
+    /**
+     * @Route("/inscription_newsletter/", name="register_newsletter")
+     */
+    public function registerNewsAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository();
+
+        $newsLetter = new NewsLetter(
+            $request->query->get('name'),
+            $request->query->get('email')
+        );
+
+        if ($repo->findOneByMail($newsLetter->getMail())) {
+            $request->getSession()->getFlashBag()->add('warning','Vous êtes déjà inscrit à la newsletter.');
+        } else {
+            $em->persist($newsLetter);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('info','Inscription à la newsletter bien effectuée.');
+        }
     }
 }

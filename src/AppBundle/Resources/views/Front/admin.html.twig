@@ -149,7 +149,7 @@
                                     <h3 class="footer_titles text-center">Contact</h3>
                                     <ul class="footer_list contact_list">
                                         <li>
-                                            <span><i class="fa fa-map-marker"></i> Association NAO</span><br>
+                                            <span>Association NAO</span><br>
                                             <span>36 rue de la vallée des ronces</span><br>
                                             <span>75006 PARIS</span>
                                         </li>
@@ -158,7 +158,7 @@
                                             <i class="fa fa-phone"></i> <a href="tel:0624533221" alt="Numéro de téléphone fixe">06 24 52 32 21</a>
                                         </li>
                                         <li>
-                                            <i class="fa fa-envelope"></i> <a href="mailto:contact@nao.org" alt="Contactez-nous">contact@nao.org</a>
+                                            <a href="mailto:contact@nao.org" alt="Contactez-nous">contact@nao.org</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -170,19 +170,16 @@
                                     <form action="{{ path('register_newsletter') }}" method="POST">
                                         <div class="form-inline">
                                             <div class="input-group col-xs-12 mb-2 mr-sm-2 mb-sm-0">
-                                                <input type="text" name="name" class="form-control" id="newsletter_name" placeholder="Prénom">
-                                                <input type="email" name="email" class="form-control" id="newsletter_mail" placeholder="Adresse email">
+                                                <input type="email" class="form-control" id="newsletter_mail" placeholder="Adresse email">
                                                 <div class="input-group-addon">OK</div>
                                             </div>
-                                            <button type="submit" id="newsLet_submit" class="col-xs-2" style="display:none;"></button>
+                                            <submit id="newsLet_submit" class="ol-xs-2"></submit>
                                         </div>
                                     </form>
-                                    <br>
                                     <p class="text-center">
                                         Suivez-nous et partagez sur
                                     </p>
-                                    <div class="text-center">
-                                        <a href="#" alt="Page Facebook"><i class="fa fa-facebook-official fa-4x" aria-hidden="true"></i></a>
+                                    <div class="col-xs-6 col-xs-offset-3">
                                     </div>
                                 </div>
                             </div>
