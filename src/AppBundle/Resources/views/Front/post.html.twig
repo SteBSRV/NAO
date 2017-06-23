@@ -21,7 +21,7 @@
 			    </div>
 			    <div class="form-group col-md-12">
 			        {{ form_errors(form.date) }}
-			        {{ form_widget(form.date, {'attr':{'class': 'form-control', 'placeholder': 'date'}}) }}
+			        {{ form_widget(form.date, {'id': 'datetimepicker', 'attr':{'class': 'form-control', 'placeholder': 'date'}}) }}
 			    </div>
 
 			    <div class="form-group col-md-7">
@@ -67,6 +67,13 @@
 		        {{ form_widget(form.nbObserved, {'attr':{'class': 'form-control', 'placeholder': 'Nombre'}}) }}
 		    </div>
 
+			{% if is_granted("ROLE_ADMIN") %}
+				<div class="form-group col-md-2 col-md-push-10">
+					{{ form_errors(form.state) }}
+					{{ form_widget(form.state, {'attr':{'class': 'form-control', 'placeholder': 'Statut'}}) }}
+				</div>
+			{% endif %}
+
 		    <div class="form-group col-md-12">
 		        {{ form_errors(form.description) }}
 		        {{ form_widget(form.description, {'attr':{'class': 'form-control', 'rows': '10', 'placeholder': 'Description'}}) }}
@@ -87,4 +94,14 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGfq5n1vQSGUbBjqfEPaKBXMp81UcrvOU&callback=initialize" async defer></script>
 
 
+{% endblock %}
+{% block script %}
+	<script type="text/javascript">
+		$(function () {
+			$('#datetimepicker').datetimepicker({
+				locale: 'fr',
+				maxDate: "now",
+			});
+		});
+	</script>
 {% endblock %}

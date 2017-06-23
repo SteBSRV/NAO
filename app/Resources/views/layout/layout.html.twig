@@ -197,8 +197,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    {% block javascripts %} {% javascripts '@AppBundle/Resources/public/js/*' %}
-        <script src="{{ asset_url }}"></script>
-    {% endjavascripts %} {% endblock %}
+
+    {% block javascripts %}
+        {% javascripts  '@AppBundle/Resources/public/js/moment-with-locales.min.js'
+        '@AppBundle/Resources/public/js/bootstrap-datetimepicker.min.js'
+        '@AppBundle/Resources/public/js/*'
+        %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}
+
+    {% block script %}
+    {% endblock %}
 </body>
 </html>

@@ -110,13 +110,21 @@ class AppController extends Controller
         $em = $this->getDoctrine()->getManager();
         $observation = new Observation();
 
-        $form = $this->get('form.factory')->create(ObservationType::class, $observation);
+        $form = $this->get('form.factory')->create(ObservationType::class, $observation, ['role' => $this->getUser()->getRoles()]);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            if($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')){
+                $observation->setState(true);
+                $this->addFlash('success', 'Votre observation a été ajouté avec succès !');
+            }
+            else{
+                $observation->setState(false);
+                $this->addFlash('success', 'Votre observation a été enregistrée. Celle-ci est en attente de validation.');
+            }
             $observation->setUser($user);
             $em->persist($observation);
             $em->flush();
-            $request->getSession()->getFlashBag()->add('info','Observation bien ajoutée.');
+
             $id = $observation->getId();
             return $this->redirectToRoute('observation', compact('id','observation'));
         }

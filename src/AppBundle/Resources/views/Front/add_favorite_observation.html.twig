@@ -1,6 +1,8 @@
+{% if userObservationFavorite is null %}
 <form action="{{ path("add_favorite_observation", {'id': observation.id}) }}" method="post">
-    <button type="submit" class="btn btn-default">
+    <button type="submit" class="link" style="float: right;">
         Ajouter au favoris <i class="fa fa-heart-o"></i>
     </button>
     {{ form_rest(form) }}
 </form>
+{% endif %}

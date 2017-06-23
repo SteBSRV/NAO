@@ -260,6 +260,19 @@ a {
     border-radius: 40px;
     padding: 50px;
 }
+.link{
+	font-size: 15px;
+	text-align: left;
+	color: black;
+	background: none;
+	margin: 0;
+	padding: 0;
+	border: none;
+	cursor: pointer;
+}
+.color-alizarin{
+	background-color: #e74c3c;
+}
 #username, #password {
 	border: none;
 	background: none;
