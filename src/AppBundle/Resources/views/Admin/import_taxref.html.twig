@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">
-                Tableau de bord <small>Mailing list</small>
+                Tableau de bord <small>Import TAXREF</small>
             </h1>
             <ol class="breadcrumb">
                 <li class="active">
@@ -31,28 +31,39 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-envelope"></i> Liste des inscrits à la Newsletter</h3>
+                    <h3 class="panel-title"><i class="fa fa-file-text"></i> Structure du fichier d'importation CSV</h3>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover table-striped">
                             <thead>
                                 <tr>
-                                    <th>Prénom</th>
-                                    <th>Mail</th>
+                                    <th>nom_de_reference</th>
+                                    <th>nom_vernaculaire</th>
+                                    <th>ordre</th>
+                                    <th>famille</th>
+                                    <th>reference</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for mailing in data.mailing %}
-                                    <tr>
-                                        <td>{{ mailing.name }}</td>
-                                        <td>{{ mailing.mail }}</td>
-                                    </tr>
-                                {% endfor %}
+                                <tr>
+                                    <td>Accipiter bicolor (Vieillot, 1817)</td>
+                                    <td>Épervier bicolore</td>
+                                    <td>Accipitriformes</td>
+                                    <td>Accipitridae</td>
+                                    <td>441604</td>
+                                </tr>
+                                <tr>
+                                    <td>Acrocephalus arundinaceus (Linnaeus, 1758)</td>
+                                    <td>Rousserolle turdoïde</td>
+                                    <td>Passeriformes (Passereaux)</td>
+                                    <td>Sylviidae</td>
+                                    <td>4198</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
-                    <a href="{{ path('admin_export_mailing_list') }}" alt="Exportation CSV"><button id="csv_export" class="btn btn-primary"><i class="fa fa-download"></i> Export CSV</button></a>
+                    <a href="{{ path('admin_export_mailing_list') }}" alt="Exportation CSV"><button id="csv_export" class="btn btn-primary"><i class="fa fa-fw fa-upload"></i> Import TAXREF (CSV)</button></a>
                 </div>
             </div>
         </div>
