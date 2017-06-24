@@ -76,7 +76,7 @@ class ObservationType extends AbstractType
                     'allow_delete'  => true,
                     'download_link' => true,
                 ])
-                ->add('date',         DateTimeType::class, [
+                ->add('observeAt',         DateTimeType::class, [
                     'label' => 'Date de l\'observation',
                     'data' => new \DateTime("now"),
                     'format' => 'dd/MM/yyyy H:m',
