@@ -78,7 +78,10 @@ fos_user:
     user_class: AppBundle\Entity\User
     registration:
         form:
-            type: AppBundle\Form\Type\RegistrationType
+            type: UserBundle\Form\Type\RegistrationFormType
+    profile:
+        form:
+            type: UserBundle\Form\Type\ProfileFormType
     from_email:
         address: ebizetsteve@gmail.com
         sender_name: "Nos Amis les Oiseaux"
@@ -128,6 +131,13 @@ vich_uploader:
         observations_images:
             uri_prefix:         'uploads/images/observations'
             upload_destination: '%kernel.root_dir%/../web/uploads/images/observations'
+            namer:              'vich_uploader.namer_uniqid'
+            inject_on_load:     true
+            delete_on_update:   true
+            delete_on_remove:   true
+        user_image:
+            uri_prefix:         'uploads/images/users'
+            upload_destination: '%kernel.root_dir%/../web/uploads/images/users'
             namer:              'vich_uploader.namer_uniqid'
             inject_on_load:     true
             delete_on_update:   true

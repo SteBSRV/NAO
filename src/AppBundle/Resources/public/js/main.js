@@ -35,3 +35,18 @@ $(document).ready(function() {
       $("#btn_open_filter").show();
     });
 })
+function displayImageOnChange(id){
+    document.getElementById(id).addEventListener('change', readURL, true);
+    function readURL(){
+        var file = document.getElementById(id).files[0];
+        var reader = new FileReader();
+        reader.onloadend = function(){
+            document.getElementById('new_profile_img').style.display = "";
+            document.getElementById('new_profile_img').style.backgroundImage = "url(" + reader.result + ")";
+        }
+        document.getElementById('old_profile_img').style.display = "none";
+        if(file){
+            reader.readAsDataURL(file);
+        }
+    }
+}

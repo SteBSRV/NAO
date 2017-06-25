@@ -5,6 +5,17 @@
         {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit form-horizontal' } }) }}
         {{ form_errors(form) }}
         <div class="form-group">
+            <div class="col-sm-12">
+                <label class="center-block">
+                <div class="center-block" id='new_profile_img' style="display: none;"></div>
+                <img id="old_profile_img" class="center-block" src="{{ vich_uploader_asset(user, 'imageFile') | imagine_filter('my_thumb') }}"/>
+                <center><br>Modifier la<br>photo
+                    {{ form_widget(form.imageFile, {'attr': {'class': 'form-control center-block', 'style': 'display:none;'}}) }}
+                </center>
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
             <div class="col-sm-2">
                 {{ form_label(form.username, "Nom d'utilisateur:") }}
             </div>
@@ -43,3 +54,5 @@
 
 <h2 class="text-center">Changer mon mot de passe</h2>
 {{ render(controller('UserBundle:ChangePassword:changePassword')) }}
+
+

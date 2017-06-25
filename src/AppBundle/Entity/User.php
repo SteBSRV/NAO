@@ -4,9 +4,12 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * User
  *
+ * @Vich\Uploadable
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
@@ -36,9 +39,31 @@ class User extends BaseUser
      */
     private $accountType;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image", type="string", length=255)
+     */
+    protected $image = '5943af2656771.png'; // Image par défaut (dossier uploads/images/users/)
+
+    /**
+     * @var File
+     *
+     * @Vich\UploadableField(mapping="user_image", fileNameProperty="image", nullable=true)
+     */
+    private $imageFile;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="createdAt", type="datetime")
+     */
+    private $createdAt;
+
     public function __construct()
     {
         parent::__construct();
+        $this->createdAt = new \DateTime();
     }
 
     /**
@@ -121,5 +146,82 @@ class User extends BaseUser
     public function getAccountType()
     {
         return $this->accountType;
+    }
+
+    /**
+     * Set image
+     *
+     * @param string $image
+     *
+     * @return User
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set imageFile
+     *
+     * @param File $image
+     *
+     * @return User
+     */
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+
+        if($image) {
+            $this->createdAt = new \DateTime("now");
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get imageFile
+     *
+     * @return File
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return User
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
     }
 }

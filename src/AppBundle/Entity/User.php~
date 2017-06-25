@@ -4,6 +4,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * User
  *
@@ -35,6 +37,27 @@ class User extends BaseUser
      * @ORM\Column(name="account_type", type="string", length=255, nullable=true)
      */
     private $accountType;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image", type="string", length=255)
+     */
+    protected $image = '5943b32b391e5.png'; // Image par défaut (dossier uploads/images/observations/)
+
+    /**
+     * @var File
+     *
+     * @Vich\UploadableField(mapping="user_image", fileNameProperty="image", nullable=true)
+     */
+    private $imageFile;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="createdAt", type="datetime")
+     */
+    private $createdAt;
 
     public function __construct()
     {
@@ -98,4 +121,81 @@ class User extends BaseUser
     {
         return $this->googleId;
     }
+
+    /**
+     * Set accountType
+     *
+     * @param string $accountType
+     *
+     * @return User
+     */
+    public function setAccountType($accountType)
+    {
+        $this->accountType = $accountType;
+
+        return $this;
+    }
+
+    /**
+     * Get accountType
+     *
+     * @return string
+     */
+    public function getAccountType()
+    {
+        return $this->accountType;
+    }
+
+    /**
+     * Set image
+     *
+     * @param string $image
+     *
+     * @return User
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set imageFile
+     *
+     * @param File $image
+     *
+     * @return User
+     */
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+
+        if($image) {
+            $this->date = new \DateTime("now");
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get imageFile
+     *
+     * @return File
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
 }
