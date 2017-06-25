@@ -23,7 +23,7 @@ class AppController extends Controller
         if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED') == true) {
             return $this->redirectToRoute('homepage');
         }
-        // Tester si utisateur a déjà visiter le site, si oui, rediriger vers l'accueil
+
         return $this->render('AppBundle:Front:startpage.html.twig');
     }
 

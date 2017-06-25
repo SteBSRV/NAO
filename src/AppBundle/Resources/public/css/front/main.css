@@ -1,6 +1,6 @@
 @font-face{
 	font-family: "TamarilloJF";
-	src: url("../fonts/TamarilloJF.ttf");
+	src: url("../../fonts/TamarilloJF.ttf");
 }
 
 /* Global style */
@@ -73,9 +73,11 @@ a {
 	padding: 10px;
 }
 .btn_slider {
-	bottom: 20px;
+	bottom: 40px;
+	width: 160px;
     position: absolute;
-    left: 32%;
+    left: 50%;
+    margin-left: -80px;
 }
 
 #home_categories {
@@ -144,6 +146,20 @@ a {
 	background-color: #E7ECE0;
 	color: #254460;
 	border-color: #254460;
+}
+.filter .chosen-container {
+	width: 100%!important;
+}
+.filter .chosen-container .chosen-single {
+	background: none!important;
+	background-color: #E7ECE0!important;
+	border: 1px solid #254460;
+	color: #254460;
+	border-radius: 4px;
+	height: 38px;
+	padding-top: 6px;
+	font-size: 14px!important;
+	font-family: verdana!important;
 }
 .filter button, #filter_open button, #btn_close_filter, #btn_init_filter {
 	background-color: #254460!important;
@@ -502,9 +518,6 @@ a {
 	.carousel_text_content {
 		font-size: 16px;
 		width: 30%;
-	}
-	.btn_slider {
-		left: 45%;
 	}
 	.modal-content h3{
 		font-size: 40px;

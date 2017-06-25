@@ -67,12 +67,12 @@ $(document).ready(function() {
     });
 
     /* AJAX FOR NewsLetterType */
-    $('#form_newsletter').on('submit', function(e) {
+    $('.form_newsletters').on('submit', function(e) {
         e.preventDefault();
  
         var $this = $(this);
-        var name = $('#news_letter_name').val();
-        var mail = $('#news_letter_mail').val();
+        var name = $this.find('#news_letter_name').val();
+        var mail = $this.find('#news_letter_mail').val();
  
         if(name === '' || mail === '') {
             alert('Les deux champs doivent êtres remplis');
@@ -81,10 +81,43 @@ $(document).ready(function() {
                 url: $this.attr('action'), 
                 type: $this.attr('method'),
                 data: $this.serialize(), 
-                success: function(html) { 
-                    alert(html);
+                success: function(html) {
+                    if (html.indexOf('<form name=') > -1)  {
+                      $this.html(html);
+                    } else {
+                      alert(html);
+                      $this.find('#news_letter_name').val('');
+                      $this.find('#news_letter_mail').val('');
+                      $("#newsletter_modal").modal("hide");
+                    }
                 }
             });
         }
     });
+
+    /* Autocomplete filter */
+    var liste = [
+        "Auvergne-Rhône-Alpes",
+        "Bourgogne-Franche-Comté",
+        "Bretagne",
+        "Centre-Val de Loire",
+        "Corse",
+        "Grand Est",
+        "Hauts-de-France",
+        "Île-de-France",
+        "Normandie",
+        "Nouvelle-Aquitaine",
+        "Occitanie",
+        "Pays de la Loire",
+        "Provence-Alpes-Côte d'Azur"
+    ];
+
+    if ($('#observation_filter_region').length)
+      $('#observation_filter_region').autocomplete({
+          source : liste,
+          minLength: 0
+      }).bind('focus', function(){ $(this).autocomplete("search"); } );
+
+    /* Autocomplete birds list */
+    $('#observation_filter_bird').chosen();
 })
