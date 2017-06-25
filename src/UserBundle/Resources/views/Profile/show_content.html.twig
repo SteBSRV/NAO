@@ -10,6 +10,7 @@
             <p><a href="{{ path('user_favorite_observations') }}">Ma liste d'observation favorites</a></p>
             {% if is_granted("ROLE_ADMIN") %}
                 <p><a href="{{ path('observations_to_validate') }}">Observations à valider</a></p>
+                <p><a href="{{ path('account_to_validate') }}">Compte naturaliste à valider</a></p>
             {% endif %}
         </div>
     </div>

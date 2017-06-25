@@ -9,6 +9,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * User
  *
+ * @Vich\Uploadable
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
@@ -43,7 +44,14 @@ class User extends BaseUser
      *
      * @ORM\Column(name="image", type="string", length=255)
      */
-    protected $image = '5943b32b391e5.png'; // Image par défaut (dossier uploads/images/observations/)
+    protected $image = '5943af2656771.png'; // Image par défaut (dossier uploads/images/users/)
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="motivation", type="text")
+     */
+    private $motivation;
 
     /**
      * @var File
@@ -55,13 +63,14 @@ class User extends BaseUser
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="createdAt", type="datetime")
+     * @ORM\Column(name="updatedAt", type="datetime")
      */
-    private $createdAt;
+    private $updateddAt;
 
     public function __construct()
     {
         parent::__construct();
+        $this->updateddAt = new \DateTime();
     }
 
     /**
@@ -182,7 +191,7 @@ class User extends BaseUser
         $this->imageFile = $image;
 
         if($image) {
-            $this->date = new \DateTime("now");
+            $this->updateddAt = new \DateTime("now");
         }
 
         return $this;
@@ -198,4 +207,28 @@ class User extends BaseUser
         return $this->imageFile;
     }
 
+
+    /**
+     * Set updateddAt
+     *
+     * @param \DateTime $updateddAt
+     *
+     * @return User
+     */
+    public function setUpdateddAt($updateddAt)
+    {
+        $this->updateddAt = $updateddAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updateddAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdateddAt()
+    {
+        return $this->updateddAt;
+    }
 }

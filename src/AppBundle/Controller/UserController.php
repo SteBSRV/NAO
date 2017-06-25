@@ -109,4 +109,18 @@ class UserController extends Controller
 
         return $this->render('AppBundle:Front:post.html.twig', ['form' => $form->createView()]);
     }
+
+    /**
+     * @Route("/naturaliste/compte-a-valider", name="account_to_validate")
+     */
+    public function getRegisterNaturalisteAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository('AppBundle:User')->getRegisterNaturaliste();
+
+        return $this->render('AppBundle:Back:show_account_to_validate.html.twig', array(
+            'users' => $users
+        ));
+    }
+
 }

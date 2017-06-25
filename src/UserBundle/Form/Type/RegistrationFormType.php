@@ -4,6 +4,7 @@ namespace UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichImageType;
@@ -21,10 +22,13 @@ class RegistrationFormType extends AbstractType
                     'naturaliste' => 'naturaliste',
                 ]
             ])
-            ->add('imageFile',         VichImageType::class, [
+            ->add('imageFile', VichImageType::class, [
                 'required' => false,
                 'allow_delete'  => false,
                 'download_link' => true,
+            ])
+            ->add('motivation', TextareaType::class, [
+                'required' => false,
             ])
         ;
     }

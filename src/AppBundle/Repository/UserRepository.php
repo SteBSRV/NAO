@@ -10,4 +10,12 @@ namespace AppBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getRegisterNaturaliste()
+    {
+        return $this->createQueryBuilder('u')
+            ->where("u.accountType = 'naturaliste'")
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }
