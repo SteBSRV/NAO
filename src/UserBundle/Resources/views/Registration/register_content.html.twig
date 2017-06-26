@@ -17,7 +17,11 @@
                     <div class="col-sm-12">
                         <label class="center-block">
                             <div class="center-block" id='new_profile_img' style="display: none;"></div>
-                            <center><div id="old_profile_img"><img src="{{ asset('images/6cbfb45.png') }}" alt="photo profile par défaut"></div><br>Ajouter une<br>photo
+                            <center><div id="old_profile_img">
+                                {% image '@AppBundle/Resources/public/images/default_profil.png' %}
+                                        <img class="profil_img_default" src="{{ asset_url }}" alt="photo profile par défaut">
+                                {% endimage %}
+                                </div><br>Ajouter une<br>photo
                                 {{ form_widget(form.imageFile, {'attr': {'class': 'form-control center-block', 'style': 'display:none;'}}) }}
                             </center>
                         </label>

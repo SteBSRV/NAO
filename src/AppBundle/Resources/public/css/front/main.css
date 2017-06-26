@@ -494,6 +494,11 @@ a {
 	min-width: 150px;
 	max-width: 250px;
 }
+.profil_img_default {
+	height: 250px;
+	min-width: 150px;
+	max-width: 250px;
+}
 /* End main style */
 
 /* Responsive tablet */
