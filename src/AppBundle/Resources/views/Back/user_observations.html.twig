@@ -38,13 +38,17 @@
                                 {% if observation.state == true %}
                                     {{ render(controller('AppBundle:User:addFavoriteObservation', {id: observation.id})) }}
                                     <br/><br/>
-                                    <img src="{{ asset("images/valide.png") }}" alt="valid icon" width="100" style="float: right;"/></p>
+                                    {% image '@AppBundle/Resources/public/images/valide.png' %}
+                                        <img src="{{ asset_url }}" alt="valid icon" width="100" style="float: right;"/>
+                                    {% endimage %}
                                 {% else %}
                                     <p class="text-right" style="color: darkred;">Cette observation n'est pas encore valide</p>
-                                    <img src="{{ asset("images/en_attente.png") }}" alt="in progress icon" width="100" style="float: right;"/>
+                                    {% image '@AppBundle/Resources/public/images/en_attente.png' %}
+                                        <img src="{{ asset_url }}" alt="in progress icon" width="100" style="float: right;"/>
+                                    {% endimage %}
                                 {% endif %}
                                 <h3 class="observation_title">{{ observation.bird.nomVer }}</h3>
-                                <p class="observation_meta">Vu le : {{ observation.date | date("d/m/Y") }} à {{observation.date | date("H:i:s")}}<br>Ville : {{ observation.address.city }}</p>
+                                <p class="observation_meta">Vu le : {{ observation.observeAt | date("d/m/Y") }} à {{observation.observeAt | date("H:i:s")}}<br>Ville : {{ observation.address.city }}</p>
                                 <p class="observation_desc hidden-xs">
                                     {{observation.description}}
                                 </p>
