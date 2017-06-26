@@ -4,20 +4,21 @@
             background-color: #55cadb!important;
         }
     </style>
-    <div class="row account">
-        <div class="col-md-offset-2 col-md-8 account_box">
 
+<div class="bg_profile">
+    <div class="row">
+        <div class="col-md-12 text-center">
             <div class="fos_user_user_show">
-                <img class="img_account" src="#">
-                <p>Modifier image du profil</p>
-                <p><a href="#">Mes informations personnelles</a></p>
-                <p><a href="#">Mes notifications</a></p>
+                {{ render(controller('UserBundle:Profile:changeProfileImage')) }}
+                <p><a href="{{ path('fos_user_profile_edit') }}">Mes informations personnelles</a></p>
+                <p><a href="{{ path('user_notifications') }}">Mes notifications</a></p>
                 <p><a href="{{ path('user_observations') }}">Mes observations</a></p>
                 <p><a href="{{ path('user_favorite_observations') }}">Ma liste d'observation favorites</a></p>
                 {% if is_granted("ROLE_ADMIN") %}
-                <p><a href="{{ path('observations_to_validate') }}">Observations à valider</a></p>
+                    <p><a href="{{ path('observations_to_validate') }}">Observations à valider</a></p>
+                    <p><a href="{{ path('account_to_validate') }}">Compte naturaliste à valider</a></p>
                 {% endif %}
-                
             </div>
         </div>
     </div>
+</div>

@@ -2,42 +2,63 @@
 
 {% block body %}
     <div class="row">
+        <div class="col-md-12">
+            {% if app.request.hasPreviousSession %}
+                {% for type, messages in app.session.flashbag.all() %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ type }}">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
         <div class="filter">
             <form>
 
             </form>
         </div>
         <div class="page_title">
-            <center><h2>Mes Observations</h2></center>
+            <center><h2>Mes Observations favorites</h2></center>
         </div>
         <div id="observations_wrapper" class="col-xs-12">
-            {% for observation in observations %}
-                <div class="observation col-xs-12">
-                    <div class="col-xs-4 col-md-3">
-                        <center>
-                            <a class="single_image" href="/{{ vich_uploader_asset(observation, 'imageFile') }}"><img class="observation_img text-center" src="{{ vich_uploader_asset(observation, 'imageFile') | imagine_filter('my_thumb') }}" alt="{{ observation.bird.nomVer }}" /></a>
-                        </center>
-                    </div>
-                    <a href="{{ path('user_observation', {'id': observation.id}) }}">
-                        <div class="observation_content col-xs-7 col-xs-offset-1  col-md-offset-0 col-md-6 col-lg-7">
-                            <h3 class="observation_title">{{ observation.bird.nomVer }}</h3>
-                            <p class="observation_meta">Vu le : {{ observation.date | date("d/m/Y") }} à {{observation.date | date("H:i:s")}}<br>Ville : {{ observation.address.city }}</p>
-                            <p class="observation_desc hidden-xs">
-                                {{observation.description}}
-                            </p>
+            {% if observations is not empty %}
+                {% for observation in observations %}
+                    <div class="observation col-xs-12">
+                        <div class="col-xs-4 col-md-3">
+                            <center>
+                                <a class="single_image" href="/{{ vich_uploader_asset(observation, 'imageFile') }}"><img class="observation_img text-center" src="{{ vich_uploader_asset(observation, 'imageFile') | imagine_filter('my_thumb') }}" alt="{{ observation.bird.nomVer }}" /></a>
+                            </center>
                         </div>
-                    </a>
-                    <div class="observation_map visible-lg visible-md col-md-3 col-lg-2">
-                        <center>
-                            {% image '@AppBundle/Resources/public/images/btn_map.png' %}
-                            <img class="observation_map_link" src="{{ asset_url }}">
-                            {% endimage %}
-                            <br>
-                            <a class="btn btn-primary" href="{{ path('map_observe', {'id': observation.id}) }}">Voir sur la carte</a>
-                        </center>
+                        <a href="{{ path('user_observation', {'id': observation.id}) }}">
+                            <div class="observation_content col-xs-7 col-xs-offset-1  col-md-offset-0 col-md-6 col-lg-7">
+                                {{ render(controller('AppBundle:User:removeFavoriteObservation', {id: observation.id})) }}
+                                <h3 class="observation_title">{{ observation.bird.nomVer }}</h3>
+                                <p class="observation_meta">Vu le : {{ observation.date | date("d/m/Y") }} à {{observation.date | date("H:i:s")}}<br>Ville : {{ observation.address.city }}</p>
+                                <p class="observation_desc hidden-xs">
+                                    {{observation.description}}
+                                </p>
+                            </div>
+                        </a>
+                        <div class="observation_map visible-lg visible-md col-md-3 col-lg-2">
+                            <center>
+                                {% image '@AppBundle/Resources/public/images/btn_map.png' %}
+                                <img class="observation_map_link" src="{{ asset_url }}">
+                                {% endimage %}
+                                <br>
+                                <a class="btn btn-primary" href="{{ path('map_observe', {'id': observation.id}) }}">Voir sur la carte</a>
+                            </center>
+                        </div>
                     </div>
+                {% endfor %}
+            {% else %}
+                <div class="observation col-xs-12">
+                    <p>Aucune observation favorite.</p>
                 </div>
-            {% endfor %}
+            {% endif %}
         </div>
     </div>
 {% endblock %}

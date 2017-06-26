@@ -1,0 +1,54 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            {% if app.request.hasPreviousSession %}
+                {% for type, messages in app.session.flashbag.all() %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ type }}">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="page_title">
+            <center><h2>Compte naturaliste à valider</h2></center>
+        </div>
+        <div id="observations_wrapper" class="col-xs-12">
+            {% if users is not empty %}
+                {% for user in users %}
+                    <div class="observation col-xs-12">
+                        <div class="col-xs-4 col-md-3">
+                            <center>
+                                <img class="text-center" src="{{ vich_uploader_asset(user, 'imageFile') | imagine_filter('my_thumb') }}" />
+                            </center>
+                        </div>
+                        <div class="observation_content col-xs-7 col-xs-offset-1  col-md-offset-0 col-md-6 col-lg-7">
+                            <h3 class="observation_title">{{ user.username }}</h3>
+                            <p class="observation_meta">Inscrit le : {{ user.updatedAt | date("d/m/Y H:i:s") }}</p>
+                            <p class="observation_desc hidden-xs">
+                                {{ user.motivation }}
+                            </p>
+                            <div class="col-xs-12 col-sm-2">
+                                {{ render(controller('AppBundle:User:validateRegisterNaturaliste', {id: user.id})) }}
+                            </div>
+                           <div class="col-xs-12 col-sm-2">
+                               {{ render(controller('AppBundle:User:denyRegisterNaturaliste', {id: user.id})) }}
+                           </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="observation col-xs-12">
+                    <p>Aucun compte à valider pour le moment.</p>
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+{% endblock %}

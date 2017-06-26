@@ -3,3 +3,9 @@
 {% block fos_user_content %}
 {% include "@FOSUser/Profile/show_content.html.twig" %}
 {% endblock fos_user_content %}
+{% block script %}
+    <script type="text/javascript">
+        displayImageOnChange("profile_image_imageFile_file");
+    </script>
+
+{% endblock %}

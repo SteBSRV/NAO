@@ -17,4 +17,13 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
 			->getSingleScalarResult()
 		;
 	}
+
+    public function getRegisterNaturaliste()
+    {
+        return $this->createQueryBuilder('u')
+            ->where("u.accountType = 'naturaliste'")
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }
