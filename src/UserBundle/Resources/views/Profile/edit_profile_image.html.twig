@@ -2,10 +2,10 @@
 {{ form_errors(form) }}
 <div class="form-group">
     <div class="col-sm-12">
-        <label class="center-block">
+        <label id="label_image_profile" class="center-block">
             <div class="center-block" id='new_profile_img' style="display: none;"></div>
             <img id="old_profile_img" class="center-block" src="{{ vich_uploader_asset(user, 'imageFile') | imagine_filter('my_thumb') }}"/>
-            <center><br>Modifier la<br>photo
+            <center>
                 {{ form_widget(form.imageFile, {'attr': {'class': 'form-control center-block', 'style': 'display:none;'}}) }}
             </center>
         </label>
@@ -13,7 +13,7 @@
 </div>
 <div class="form-group">
     <div class="col-md-12">
-        <input class="btn btn-info" type="submit" value="Modifier" />
+        <input class="btn btn-info center-block" type="submit" value="Modifier" />
     </div>
 </div>
 {{ form_rest(form) }}

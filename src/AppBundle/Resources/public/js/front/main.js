@@ -121,3 +121,30 @@ $(document).ready(function() {
     /* Autocomplete birds list */
     $('#observation_filter_bird').chosen();
 })
+
+function displayImageOnChange(id){
+    document.getElementById(id).addEventListener('change', readURL, true);
+    function readURL(){
+        var file = document.getElementById(id).files[0];
+        var reader = new FileReader();
+        reader.onloadend = function(){
+            document.getElementById('new_profile_img').style.display = "";
+            document.getElementById('new_profile_img').style.backgroundImage = "url(" + reader.result + ")";
+        }
+        document.getElementById('old_profile_img').style.display = "none";
+        if(file){
+            reader.readAsDataURL(file);
+        }
+    }
+}
+function showMotivationField(){
+    var accountType = $("#fos_user_registration_form_accountType").val();
+    if(accountType === "amateur"){
+        $("#motivationField").hide();
+        $("#fos_user_registration_form_motivation").attr("required", false);
+    }
+    else{
+        $("#motivationField").show();
+        $("#fos_user_registration_form_motivation").attr("required", true);
+    }
+}
