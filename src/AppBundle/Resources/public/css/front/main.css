@@ -150,6 +150,20 @@ a {
 .filter .chosen-container {
 	width: 100%!important;
 }
+#participate_form .chosen-container {
+	width: 100%!important;
+}
+#participate_form .chosen-container .chosen-single {
+	background: none!important;
+	background-color: #FFF!important;
+	border: none;
+	color: #254460;
+	border-radius: 4px;
+	height: 38px;
+	padding-top: 6px;
+	font-size: 14px!important;
+	font-family: verdana!important;
+}
 .filter .chosen-container .chosen-single {
 	background: none!important;
 	background-color: #E7ECE0!important;

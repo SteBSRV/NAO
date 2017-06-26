@@ -119,7 +119,12 @@ $(document).ready(function() {
       }).bind('focus', function(){ $(this).autocomplete("search"); } );
 
     /* Autocomplete birds list */
-    $('#observation_filter_bird').chosen();
+    if($('#observation_filter_bird').length) {
+      $('#observation_filter_bird').chosen({placeholder_text_single: "Choisir une espèce..."});
+    }
+    if($('#observation_bird').length) {
+      $('#observation_bird').chosen({placeholder_text_single: "Choisir une espèce..."});
+    }
 })
 
 function displayImageOnChange(id){
