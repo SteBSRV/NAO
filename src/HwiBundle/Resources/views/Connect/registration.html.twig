@@ -44,11 +44,34 @@
                     {{ form_errors(form.plainPassword.second) }}
                 </div>
             </div>
-           {#  <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <input class="btn btn-info" type="submit" value="{{ 'registration.submit'|trans }}" />
+            <div class="form-group">
+                <div class="col-sm-2">
+                    {{ form_label(form.accountType, "Type de compte:") }}
                 </div>
-            </div>#}
+                <div class="col-sm-10">
+                    {{ form_widget(form.accountType, {'attr': {'class': 'form-control', 'onchange': 'showMotivationField()'}}) }}
+                    {{ form_errors(form.accountType) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <label class="center-block">
+                        <div class="center-block" id='new_profile_img' style="display: none;"></div>
+                        <center><div id="old_profile_img"><img src="{{ asset('images/6cbfb45.png') }}" alt="photo profile par défaut"></div><br>Ajouter une<br>photo
+                            {{ form_widget(form.imageFile, {'attr': {'class': 'form-control center-block', 'style': 'display:none;'}}) }}
+                        </center>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group" id="motivationField">
+                <div class="col-sm-2">
+                    {{ form_label(form.motivation, "Motivation: (minimum 250 caractères)") }}
+                </div>
+                <div class="col-sm-10">
+                    {{ form_widget(form.motivation, {'attr': {'class': 'form-control', 'rows': '5', 'style': 'margin-bottom:20px;'}}) }}
+                    {{ form_errors(form.motivation) }}
+                </div>
+            </div>
             {{ form_rest(form) }}
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
@@ -57,15 +80,13 @@
                 </div>
             </div>
             {{ form_end(form) }}
-
         </div>
-        {#
-        <div class="span6">
-            {% if userInformation.profilePicture is not empty %}
-                <img src="{{ userInformation.profilePicture }}" />
-            {% endif %}
-        </div>
-        #}
     </div>
 
 {% endblock hwi_oauth_content %}
+{% block script %}
+    <script type="text/javascript">
+        displayImageOnChange("fos_user_registration_form_imageFile_file");
+        showMotivationField();
+    </script>
+{% endblock %}

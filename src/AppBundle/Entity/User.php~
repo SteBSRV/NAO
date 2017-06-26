@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * User
  *
@@ -49,7 +50,8 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="motivation", type="text")
+     * @ORM\Column(name="motivation", type="text", nullable=true)
+     * @Assert\Length(min=250)
      */
     private $motivation;
 
@@ -65,12 +67,17 @@ class User extends BaseUser
      *
      * @ORM\Column(name="updatedAt", type="datetime")
      */
-    private $updateddAt;
+    private $updatedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Notification", mappedBy="user", cascade={"persist"})
+     */
+    private $notification;
+    
     public function __construct()
     {
         parent::__construct();
-        $this->updateddAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
     }
 
     /**
@@ -191,7 +198,7 @@ class User extends BaseUser
         $this->imageFile = $image;
 
         if($image) {
-            $this->updateddAt = new \DateTime("now");
+            $this->updatedAt = new \DateTime("now");
         }
 
         return $this;
@@ -209,26 +216,50 @@ class User extends BaseUser
 
 
     /**
-     * Set updateddAt
+     * Set updatedAt
      *
-     * @param \DateTime $updateddAt
+     * @param \DateTime $updatedAt
      *
      * @return User
      */
-    public function setUpdateddAt($updateddAt)
+    public function setUpdatedAt($updatedAt)
     {
-        $this->updateddAt = $updateddAt;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
 
     /**
-     * Get updateddAt
+     * Get updatedAt
      *
      * @return \DateTime
      */
-    public function getUpdateddAt()
+    public function getUpdatedAt()
     {
-        return $this->updateddAt;
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set motivation
+     *
+     * @param string $motivation
+     *
+     * @return User
+     */
+    public function setMotivation($motivation)
+    {
+        $this->motivation = $motivation;
+
+        return $this;
+    }
+
+    /**
+     * Get motivation
+     *
+     * @return string
+     */
+    public function getMotivation()
+    {
+        return $this->motivation;
     }
 }

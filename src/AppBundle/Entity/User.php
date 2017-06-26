@@ -69,6 +69,11 @@ class User extends BaseUser
      */
     private $updatedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Notification", mappedBy="user", cascade={"persist"})
+     */
+    private $notification;
+    
     public function __construct()
     {
         parent::__construct();
@@ -256,5 +261,39 @@ class User extends BaseUser
     public function getMotivation()
     {
         return $this->motivation;
+    }
+
+    /**
+     * Add notification
+     *
+     * @param \AppBundle\Entity\Notification $notification
+     *
+     * @return User
+     */
+    public function addNotification(\AppBundle\Entity\Notification $notification)
+    {
+        $this->notification[] = $notification;
+        $notification->setUser($this);
+        return $this;
+    }
+
+    /**
+     * Remove notification
+     *
+     * @param \AppBundle\Entity\Notification $notification
+     */
+    public function removeNotification(\AppBundle\Entity\Notification $notification)
+    {
+        $this->notification->removeElement($notification);
+    }
+
+    /**
+     * Get notification
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getNotification()
+    {
+        return $this->notification;
     }
 }

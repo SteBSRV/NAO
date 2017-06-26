@@ -50,3 +50,14 @@ function displayImageOnChange(id){
         }
     }
 }
+function showMotivationField(){
+    var accountType = $("#fos_user_registration_form_accountType").val();
+    if(accountType === "amateur"){
+        $("#motivationField").hide();
+        $("#fos_user_registration_form_motivation").attr("required", false);
+    }
+    else{
+        $("#motivationField").show();
+        $("#fos_user_registration_form_motivation").attr("required", true);
+    }
+}

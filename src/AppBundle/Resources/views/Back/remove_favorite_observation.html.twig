@@ -1,0 +1,8 @@
+{% if userObservationFavorite is not null %}
+<form action="{{ path("remove_favorite_observation", {'id': observation.id}) }}" method="post">
+    <button type="submit" class="link" style="float: right;">
+        Retirer des favoris <i class="fa fa-close"></i>
+    </button>
+    {{ form_rest(form) }}
+</form>
+{% endif %}

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Notification;
 use AppBundle\Entity\Observation;
 use AppBundle\Entity\UserObservation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -9,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Form\Type\ObservationType;
+use AppBundle\Entity\User;
 class UserController extends Controller
 {
     /**
@@ -34,7 +36,7 @@ class UserController extends Controller
             $em->flush();
             $this->addFlash('success', 'Cette observation est ajouté dans votre liste d\'observation favorite !');
 
-            return $this->redirectToRoute('observation', array('id' => $observation->getId()));
+            return $this->redirectToRoute('observations');
         }
 
         return $this->render('AppBundle:Front:add_favorite_observation.html.twig', array(
@@ -42,6 +44,44 @@ class UserController extends Controller
             'userObservationFavorite' => $userObservationFavorite,
             'form' => $form->createView()
         ));
+    }
+
+    /**
+     * @Route("/removeFavoriteObservation/{id}", name="remove_favorite_observation")
+     */
+    public function removeFavoriteObservationAction(Request $request, Observation $observation)
+    {
+        $form = $this->get('form.factory')->create();
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $userObservationFavorite = $em->getRepository('AppBundle:UserObservation')->findUserObservationFavorite($user, $observation);
+
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            $em->remove($userObservationFavorite);
+            $em->flush();
+
+            $this->addFlash('success', 'Vous avez retirer une observation de vos favoris');
+
+            return $this->redirectToRoute('user_favorite_observations');
+        }
+
+        return $this->render('AppBundle:Back:remove_favorite_observation.html.twig', array(
+            'observation' => $observation,
+            'userObservationFavorite' => $userObservationFavorite,
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * @Route("/user/notifications", name="user_notifications")
+     */
+    public function showUserNotificationsAction()
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $notifications = $em->getRepository('AppBundle:Notification')->getUserNotifications($user);
+
+        return $this->render('AppBundle:Back:show_notifications.html.twig', compact('notifications', 'user'));
     }
 
     /**
@@ -59,7 +99,7 @@ class UserController extends Controller
     /**
      * @Route("/user/observation/{id}", name="user_observation")
      */
-    public function showUserObservationAction(Request $request, $id)
+    public function showUserObservationAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $observation = $em->getRepository('AppBundle:Observation')->find($id);
@@ -101,10 +141,25 @@ class UserController extends Controller
         $form = $this->get('form.factory')->create(ObservationType::class, $observation, ['role' => $this->getUser()->getRoles()]);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            $em->persist($observation);
+            $state = $observation->getState();
+            $user = $observation->getUser();
+            if(true == $state){
+                $notification = new Notification();
+                $notification->setTitle('Validation de l\'observation : accepté');
+                $notification->setDescription('Votre observation a été validé par un de nos naturalistes.');
+            }
+            else{
+                $notification = new Notification();
+                $notification->setTitle('Validation de l\'observation : refusé');
+                $notification->setDescription('Votre observation n\'a pas été validé par un de nos naturalistes, nous sommes désolé.');
+                $em->remove($observation);
+            }
+            $notification->setUser($user);
+            $em->persist($notification);
             $em->flush();
-            
-            return $this->redirectToRoute('observation', compact('id','observation'));
+
+            $this->addFlash('success', 'Vous venez de valider une observation avec succès.');
+            return $this->redirectToRoute('observations_to_validate');
         }
 
         return $this->render('AppBundle:Front:post.html.twig', ['form' => $form->createView()]);
@@ -113,7 +168,7 @@ class UserController extends Controller
     /**
      * @Route("/naturaliste/compte-a-valider", name="account_to_validate")
      */
-    public function getRegisterNaturalisteAction(Request $request)
+    public function getRegisterNaturalisteAction()
     {
         $em = $this->getDoctrine()->getManager();
         $users = $em->getRepository('AppBundle:User')->getRegisterNaturaliste();
@@ -123,4 +178,59 @@ class UserController extends Controller
         ));
     }
 
+    /**
+     * @Route("/naturaliste/compte-valide/{id}", name="account_to_validate_ok")
+     */
+    public function validateRegisterNaturalisteAction(Request $request, User $user)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->get('form.factory')->create();
+
+        if($request->isMethod('POST') && $form->handleRequest($request)->isValid()){
+            $notification = new Notification();
+            $notification->setTitle('Validation du compte: accepté');
+            $notification->setDescription('Votre compte a été validé par un de nos naturalistes. Vous disposez désormais d\'un compte naturaliste');
+            $user->setAccountType(null);
+            $user->setRoles(array('ROLE_ADMIN'));
+            $user->addNotification($notification);
+            $em->persist($user);
+            $em->flush();
+
+            $this->addFlash('success', 'Vous venez de valider le compte d\'un nouveau naturaliste.');
+            return $this->redirectToRoute('account_to_validate');
+        }
+
+        return $this->render('AppBundle:Back:allow_naturaliste_account.html.twig', array(
+            'form' => $form->createView(),
+            'user' => $user
+        ));
+    }
+
+    /**
+     * @Route("/naturaliste/compte-valide/denied/{id}", name="account_to_validate_denied")
+     */
+    public function denyRegisterNaturalisteAction(Request $request, User $user)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->get('form.factory')->create();
+
+        if($request->isMethod('POST') && $form->handleRequest($request)->isValid()){
+            $notification = new Notification();
+            $notification->setTitle('Validation du compte: refusé');
+            $notification->setDescription('Votre compte n\'a pas été validé par un de nos naturalistes, nous sommes désolé.');
+            $user->setAccountType(null);
+            $user->setRoles(array('ROLE_USER'));
+            $user->addNotification($notification);
+            $em->persist($user);
+            $em->flush();
+
+            $this->addFlash('success', 'Vous venez de refusez la validation d\'un nouveau compte naturaliste.');
+            return $this->redirectToRoute('account_to_validate');
+        }
+
+        return $this->render('AppBundle:Back:deny_naturaliste_account.html.twig', array(
+            'form' => $form->createView(),
+            'user' => $user
+        ));
+    }
 }

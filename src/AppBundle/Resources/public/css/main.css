@@ -202,7 +202,13 @@ a {
 	height: 50px;
 	text-align: center;
 }
-
+.bg_profile {
+	background-image: url("../images/bg_profile.jpg");
+	background-position: center;
+	background-size: cover;
+	width: 100%;
+	height: 100%;
+}
 .participate {
 	background-image: url("../images/bg_participate.jpg");
 	background-position: center;

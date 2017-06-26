@@ -5,15 +5,7 @@
 {% endblock fos_user_content %}
 {% block script %}
     <script type="text/javascript">
-        function showMotivationField(){
-            var accountType = $("#fos_user_registration_form_accountType").val();
-            if(accountType === "amateur"){
-                $("#motivationField").hide();
-            }
-            else{
-                $("#motivationField").show();
-            }
-        }
+        displayImageOnChange("fos_user_registration_form_imageFile_file");
         showMotivationField()
     </script>
 
