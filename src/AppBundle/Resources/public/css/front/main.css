@@ -486,6 +486,14 @@ a {
 	border-radius: 0;
 	color: #FFF;
 }
+#new_profile_img{
+	background-image: url('');
+	background-size: cover;
+	background-position: center;
+	height: 250px;
+	min-width: 150px;
+	max-width: 250px;
+}
 /* End main style */
 
 /* Responsive tablet */
