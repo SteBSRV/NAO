@@ -55,6 +55,7 @@ class Address
      * @var string
      *
      * @ORM\Column(name="region", type="string", length=255)
+     * @Assert\NotBlank(message="Adresse incorrect, impossible de calculer les coordonnées, merci de saisir une adresse valide")
      */
     protected $region;
 
@@ -62,6 +63,7 @@ class Address
      * @var float
      *
      * @ORM\Column(name="latitude", type="float", nullable=true)
+     * @Assert\NotBlank(message="Adresse incorrect, impossible de calculer les coordonnées, merci de saisir une adresse valide")
      */
     protected $lat;
 
@@ -69,6 +71,7 @@ class Address
      * @var float
      *
      * @ORM\Column(name="longitude", type="float", nullable=true)
+     * @Assert\NotBlank(message="Adresse incorrect, impossible de calculer les coordonnées, merci de saisir une adresse valide")
      */
     protected $lng;
 

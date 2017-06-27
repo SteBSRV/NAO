@@ -44,7 +44,7 @@ h2 {
 	margin: 10px -10px;
 }
 .start_content {
-	margin-top: 10%!important;
+	margin-top: 6%!important;
 }
 .start_text {
 	color: white;
@@ -116,6 +116,9 @@ h2 {
 	}
 	.start_text {
 		font-size: 30px;
+	}
+	.start_content {
+		margin-top: 10%!important;
 	}
 	.border_content {
 		margin-top: 5%;

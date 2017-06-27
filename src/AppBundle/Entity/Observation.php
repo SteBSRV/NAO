@@ -87,7 +87,15 @@ class Observation
      * @var File
      *
      * @Vich\UploadableField(mapping="observations_images", fileNameProperty="image", nullable=true)
-     * @Assert\File(maxSize = "10M")
+     * @Assert\File(
+     *      maxSize="10M",
+     *      mimeTypes = {
+     *          "image/png",
+     *          "image/jpeg",
+     *          "image/jpg",
+     *          "image/gif"
+     *      }
+     * )
      */
     private $imageFile;
 
